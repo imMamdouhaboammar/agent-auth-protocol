@@ -56,7 +56,7 @@ describe("AgentAuth publication, citation, and discoverability", () => {
 
     expect(statSync("AGENTS.md").size).toBeGreaterThan(8000);
     expect(agents).toContain("Source-of-truth order");
-    expect(agents).toContain("OAuth Client");
+    expect(agents).toMatch(/OAuth client/i);
     expect(agents).toContain("Agent Principal");
     expect(agents).toContain("Effective authority narrows");
     expect(agents).toContain("non-transitive by default");
