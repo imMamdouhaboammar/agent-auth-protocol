@@ -1,0 +1,36 @@
+{
+  "proposal_id": "prop_123",
+  "provider_resource": "https://calendar.example.com",
+  "subject": {
+    "type": "human",
+    "issuer": "https://id.example.com",
+    "id": "user_123"
+  },
+  "actor": {
+    "issuer": "https://agents.example.com",
+    "id": "assistant_7"
+  },
+  "required_capabilities": [
+    {
+      "capability_id": "cap_read",
+      "type": "agent_action",
+      "action": "calendar.event.read",
+      "resources": [
+        "urn:calendar:primary"
+      ]
+    }
+  ],
+  "optional_capabilities": [
+    {
+      "capability_id": "cap_create",
+      "type": "agent_action",
+      "action": "calendar.event.create",
+      "resources": [
+        "urn:calendar:primary"
+      ]
+    }
+  ],
+  "purpose": "schedule coordination",
+  "requested_expires_at": "2026-10-06T12:00:00Z",
+  "requested_max_delegation_depth": 0
+}
