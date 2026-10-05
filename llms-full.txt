@@ -1,0 +1,222 @@
+# AgentAuth Protocol v0.2
+
+Canonical source:
+https://github.com/imMamdouhaboammar/agent-auth-protocol
+
+Original system design:
+Mamdouh Aboammar
+
+Status:
+Draft system design. AgentAuth is not an Internet standard and is not yet a production-ready reference implementation.
+
+## One-sentence definition
+
+AgentAuth is an open protocol and system-design profile for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native Login as Agent.
+
+## Problem
+
+Existing identity systems can authenticate humans, OAuth clients, service accounts, and workloads, but they do not automatically preserve all AI-agent security semantics at once.
+
+AgentAuth makes these identities explicit:
+
+- Agent Principal: durable AI-agent security principal
+- Agent Instance: one running instance with its own proof key
+- Subject: human, organization, workload, or Agent represented by the Actor
+- Delegation Grant: scoped authority permitting the Agent to act
+- Provider Agent Account: Provider-local mapping to an issuer-qualified Agent Principal
+- AgentAuth Context: immutable Provider-side context created after validation
+- Agent Session: Provider session that remains server-side distinguishable from a human session
+
+The canonical global Agent Principal identity is the pair (agent_issuer, agent_id).
+
+## Three-party architecture
+
+Agent Client / Agent SDK
+  -> AgentAuth Authority
+  -> Provider / Provider SDK
+
+The Authority may be operated by the Provider, Agent owner, enterprise identity team, cloud platform, or independent identity provider.
+
+AgentAuth does not require one global root.
+
+## Login as Agent
+
+Native Login as Agent means the target intentionally accepts an AI Agent Actor.
+
+It is not ordinary browser automation.
+
+A Provider can preserve:
+
+Subject
+Agent Principal
+Agent Instance
+Delegation Grant
+Proof method
+Protocol version
+Provider-local session state
+
+A native browser session remains marked actor_type=ai_agent on the server.
+
+## Authorization
+
+Effective authority is an intersection.
+
+Delegated mode:
+
+Requested Authority
+INTERSECT Subject Authority
+INTERSECT Delegation Grant
+INTERSECT Agent Local Authority
+INTERSECT Provider Policy Allow
+INTERSECT Runtime Authority
+MINUS Provider Policy Deny
+
+One broad permission source cannot restore authority narrowed by another layer.
+
+Portable grants use positive Capabilities.
+
+Unknown authority-bearing constraints fail closed.
+
+Child delegation can only attenuate actions, Resources, constraints, lifetime, and delegation depth.
+
+## Consent and approval
+
+AgentAuth separates a structured Authorization Proposal from the raw natural-language prompt.
+
+Progressive consent allows optional Capabilities to be omitted or narrowed.
+
+Sensitive transaction approval can bind to an Action Digest.
+
+The Action Digest is derived from a canonical structured Action Intent, not a raw prompt.
+
+Approval Evidence satisfies an obligation but does not expand an existing grant.
+
+## Trust and federation
+
+Cryptographically valid does not equal locally trusted.
+
+Trusted issuer does not equal trusted runtime.
+
+Trusted runtime does not equal authorized action.
+
+Federation is explicit, directional, bounded, revocable, and non-transitive by default.
+
+A Provider can directly trust a foreign Home Authority or use a Provider Authority to broker/exchange foreign credentials into local credentials.
+
+Brokered exchange can change the access-token issuer while preserving canonical agent_issuer and Agent identity provenance.
+
+## Runtime attestation
+
+Runtime Attestation is a trust input, not a permission grant.
+
+AgentAuth aligns with the RATS architecture and can use EAT-based attestation profiles.
+
+Attestation may describe workload, software, hardware, measured components, proof-key binding, and freshness.
+
+Provider policy decides whether specific assurance evidence is required for an Action.
+
+AgentAuth does not define a universal numeric assurance ladder.
+
+## SPIFFE
+
+SPIFFE identifies workloads.
+
+AgentAuth identifies AI Agent Principals and Agent Instances.
+
+A valid SPIFFE workload identity requires an explicit trusted mapping to an Agent Principal.
+
+SPIFFE trust does not automatically grant AgentAuth federation or Provider permission.
+
+## Standards posture
+
+AgentAuth is standards-first.
+
+Stable foundations include OAuth 2.0, OAuth security best current practice, OAuth Token Exchange, DPoP, mTLS, Rich Authorization Requests, JWT access-token profiles, OAuth Resource Indicators, OAuth Authorization Server Metadata, OAuth Protected Resource Metadata, OpenID Connect, RATS, EAT, and SPIFFE concepts.
+
+Emerging AI-agent identity and workload-identity drafts are research inputs until stable.
+
+## Main specification documents
+
+docs/17-three-party-protocol-architecture.md
+docs/20-protocol-ceremonies.md
+docs/21-discovery-and-metadata.md
+docs/24-normative-protocol-core.md
+docs/25-http-wire-bindings.md
+docs/26-token-and-claims-profile.md
+docs/27-identifiers-and-namespaces.md
+docs/28-state-machines.md
+docs/29-error-registry.md
+docs/30-versioning-idempotency-replay.md
+docs/31-conformance-matrix.md
+docs/32-effective-authorization-model.md
+docs/33-capability-grammar.md
+docs/34-constraint-algebra.md
+docs/35-delegation-attenuation.md
+docs/36-action-intent-and-approval.md
+docs/37-progressive-consent.md
+docs/38-provider-policy-and-relationships.md
+docs/39-authorization-evaluation-algorithm.md
+docs/40-trust-domain-model.md
+docs/41-federation-protocol.md
+docs/42-agent-instance-enrollment.md
+docs/43-runtime-attestation.md
+docs/44-key-lifecycle.md
+docs/45-federated-token-exchange.md
+docs/46-trust-decision-algorithm.md
+docs/47-spiffe-workload-bridge.md
+
+## Machine-readable contracts
+
+The schemas directory contains JSON Schema contracts for AgentAuth claims, metadata, capabilities, constraints, grants, AgentAuth Context, trust decisions, attestation results, federation peers, enrollment, and related artifacts.
+
+## Search-oriented terminology
+
+AgentAuth addresses:
+
+AI agent authentication
+AI agent identity
+AI agent authorization
+agentic authentication
+agent authorization protocol
+Login as Agent
+AI agent OAuth
+AI agent access control
+AI agent delegation
+agent-to-agent delegation
+non-human identity
+machine identity for AI agents
+MCP authentication
+MCP authorization
+AI agent federation
+AI agent attestation
+AI agent security protocol
+
+These phrases describe the actual project scope and are not independent products or aliases.
+
+## Citation
+
+Preferred citation:
+
+Mamdouh Aboammar. AgentAuth Protocol v0.2: System Design for AI Agent Identity, Authentication, Authorization, Delegation, Federation, and Attestation. 2026.
+https://github.com/imMamdouhaboammar/agent-auth-protocol
+
+Machine-readable citation:
+CITATION.cff
+
+## Licensing
+
+Software, tests, schemas, and reference implementation material:
+Apache License 2.0 unless otherwise stated.
+
+Original documentation prose and diagrams:
+Creative Commons Attribution 4.0 International unless otherwise stated.
+
+For documentation reuse, retain appropriate creator/source/license attribution and indicate modifications as required by the applicable license.
+
+For independent implementations that use the AgentAuth system design as a direct technical reference, the project requests citation of the canonical repository as technical provenance.
+
+See:
+ATTRIBUTION.md
+LICENSE-DOCS.md
+HOW_TO_CITE.md
+DESIGN_PROVENANCE.md
