@@ -116,3 +116,24 @@ PR4 does not standardize:
 - one mandatory SPIFFE deployment
 - draft OAuth attestation fields
 - a global Agent publisher registry
+
+
+## 9. Current WIMSE workload identity work
+
+References:
+
+https://datatracker.ietf.org/doc/draft-ietf-wimse-workload-identity-practices/
+https://datatracker.ietf.org/doc/draft-ietf-wimse-workload-creds/
+https://datatracker.ietf.org/doc/draft-ietf-wimse-http-signature/
+
+At the 2026-10-05 checkpoint:
+
+- Workload Identity Practices is at working-group draft revision 07
+- WIMSE Workload Credentials is at revision 02
+- WIMSE workload HTTP-signature authentication is at revision 07
+
+These remain Internet-Drafts.
+
+AgentAuth design takeaway:
+
+Keep workload-to-Agent mapping and proof-key seams adaptable so stable WIMSE credential or presentation profiles can be adopted later without changing Agent Principal or Provider authorization semantics.
