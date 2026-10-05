@@ -1,0 +1,17 @@
+{
+  "client_name": "Research Agent Runtime",
+  "token_endpoint_auth_method": "private_key_jwt",
+  "grant_types": [
+    "urn:ietf:params:oauth:grant-type:token-exchange"
+  ],
+  "urn:agentauth:client-metadata:v1": {
+    "agent_id": "urn:agentauth:agent:researcher",
+    "agent_metadata_uri": "https://publisher.example/agents/researcher.json",
+    "profiles_supported": [
+      "AA-CLIENT-1"
+    ],
+    "proof_methods_supported": [
+      "dpop"
+    ]
+  }
+}
