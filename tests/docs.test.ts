@@ -42,7 +42,15 @@ describe("AgentAuth Specification Documents", () => {
     "docs/36-action-intent-and-approval.md",
     "docs/37-progressive-consent.md",
     "docs/38-provider-policy-and-relationships.md",
-    "docs/39-authorization-evaluation-algorithm.md"
+    "docs/39-authorization-evaluation-algorithm.md",
+    "docs/40-trust-domain-model.md",
+    "docs/41-federation-protocol.md",
+    "docs/42-agent-instance-enrollment.md",
+    "docs/43-runtime-attestation.md",
+    "docs/44-key-lifecycle.md",
+    "docs/45-federated-token-exchange.md",
+    "docs/46-trust-decision-algorithm.md",
+    "docs/47-spiffe-workload-bridge.md"
   ];
 
   const adrs = [
@@ -57,7 +65,11 @@ describe("AgentAuth Specification Documents", () => {
     "docs/adr/0009-effective-authority-is-intersection.md",
     "docs/adr/0010-portable-constraints-require-subsumption.md",
     "docs/adr/0011-relationship-policy-remains-provider-local.md",
-    "docs/adr/0012-core-child-delegation-is-authority-mediated.md"
+    "docs/adr/0012-core-child-delegation-is-authority-mediated.md",
+    "docs/adr/0013-no-global-root-of-trust.md",
+    "docs/adr/0014-federation-is-explicit-and-non-transitive.md",
+    "docs/adr/0015-attestation-does-not-grant-authority.md",
+    "docs/adr/0016-instance-proof-keys-are-independent.md"
   ];
 
   const securityAndDeploy = [
@@ -67,7 +79,8 @@ describe("AgentAuth Specification Documents", () => {
     "goals/ZZZOPS_GOAL_DAG.md",
     "implementation/PLAN.md",
     "implementation/PROTOCOL_V0_2_PLAN.md",
-    "docs/research/pr3-authorization-inspiration.md"
+    "docs/research/pr3-authorization-inspiration.md",
+    "docs/research/pr4-trust-attestation-standards.md"
   ];
 
   it("ensures all numbered specification documents exist and are substantial", () => {
