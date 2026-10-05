@@ -43,10 +43,21 @@ permalink: /
           ]
         },
         "license": "https://creativecommons.org/licenses/by/4.0/",
+        "image": "https://opengraph.githubassets.com/1/imMamdouhaboammar/agent-auth-protocol",
         "isPartOf": {
           "@type": "CreativeWork",
           "name": "AgentAuth Protocol",
           "url": "https://github.com/imMamdouhaboammar/agent-auth-protocol"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "name": "AgentAuth Protocol",
+        "url": "https://immamdouhaboammar.github.io/agent-auth-protocol/",
+        "description": "Open system design for AI agent authentication, identity, authorization, delegation, federation, attestation, and Login as Agent.",
+        "author": {
+          "@type": "Person",
+          "name": "Mamdouh Aboammar"
         }
       },
       {
@@ -86,9 +97,9 @@ permalink: /
 
   <p>It defines how a target service can know that an AI agent is acting, identify the durable Agent Principal and current Agent Instance, preserve the represented human or organization, verify scoped delegated authority, and keep the resulting action attributable and auditable.</p>
 
-  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol">View the canonical repository</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/24-normative-protocol-core.md">Read the normative protocol core</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/HOW_TO_CITE.md">How to cite AgentAuth</a></p>
+  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol" rel="noopener noreferrer">View the canonical repository</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/24-normative-protocol-core.md" rel="noopener noreferrer">Read the normative protocol core</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/HOW_TO_CITE.md" rel="noopener noreferrer">How to cite AgentAuth</a></p>
 
-  <h2>What does AgentAuth solve?</h2>
+  <h2 id="what-agentauth-solves">What does AgentAuth solve?</h2>
   <p>OAuth clients, service accounts, workloads, and browser sessions do not automatically express the full identity of an AI agent. AgentAuth separates the represented Subject, the AI Agent Actor, the running Agent Instance, the Delegation Grant, proof-of-possession, Provider policy, and the final Agent-aware session.</p>
 
   <pre>Subject        = represented human / organization / workload / Agent
@@ -97,11 +108,11 @@ Agent Instance = current runtime with its own proof key
 Grant          = explicit scoped delegated authority
 Provider       = final local authorization authority</pre>
 
-  <h2>What is Login as Agent?</h2>
+  <h2 id="login-as-agent">What is Login as Agent?</h2>
   <p>Login as Agent is a native authentication flow in which the target intentionally accepts an AI Agent Actor and preserves that fact in its server-side authorization and session state. It is not a bot typing a human password, a special User-Agent string, or an ordinary OAuth client identifier.</p>
   <p><a href="guides/login-as-agent/">Read: How Login as Agent works</a></p>
 
-  <h2>Core design areas</h2>
+  <h2 id="core-design">Core design areas</h2>
   <div class="grid">
     <div class="card"><strong>Identity</strong><br>Agent Principal, Agent Instance, represented Subject, issuer-qualified identity.</div>
     <div class="card"><strong>Authentication</strong><br>Proof-bound credentials, DPoP or mTLS, native Agent sessions.</div>
@@ -111,10 +122,10 @@ Provider       = final local authorization authority</pre>
     <div class="card"><strong>Attestation</strong><br>Runtime evidence as a trust input, never as an automatic permission grant.</div>
   </div>
 
-  <h2>Standards-first</h2>
+  <h2 id="standards">Standards-first</h2>
   <p>AgentAuth composes existing standards rather than replacing them. The design reuses OAuth, OpenID Connect, Token Exchange, DPoP, mTLS, Rich Authorization Requests, Protected Resource Metadata, RATS, EAT, and SPIFFE concepts where they already solve the lower-level security problem.</p>
 
-  <h2>Start with the question you have</h2>
+  <h2 id="guides">Start with the question you have</h2>
   <div class="grid">
     <div class="card"><a href="guides/what-is-agentauth/"><strong>What is AgentAuth?</strong></a><br>Core purpose, identity model, and protocol boundaries.</div>
     <div class="card"><a href="guides/login-as-agent/"><strong>How does an AI agent log in?</strong></a><br>Native Login as Agent and Agent-aware sessions.</div>
@@ -122,11 +133,11 @@ Provider       = final local authorization authority</pre>
     <div class="card"><a href="guides/faq/"><strong>AgentAuth FAQ</strong></a><br>Short answers for common implementation and security questions.</div>
   </div>
 
-  <h2>Authorship, citation, and reuse</h2>
+  <h2 id="citation-and-reuse">Authorship, citation, and reuse</h2>
   <p>The original integrated AgentAuth system design was initiated and authored by <strong>Mamdouh Aboammar</strong>. Software, tests, schemas, and reference implementation material are Apache-2.0 unless otherwise noted. Original documentation prose and diagrams are CC BY 4.0 unless otherwise noted.</p>
   <p>Implementers who use AgentAuth as a direct technical reference are requested to cite the canonical repository as design provenance. Documentation reuse remains subject to the applicable CC BY 4.0 attribution requirements.</p>
 
-  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/DESIGN_PROVENANCE.md">Design provenance</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/ATTRIBUTION.md">Attribution policy</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/CITATION.cff">Machine-readable citation</a></p>
+  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/DESIGN_PROVENANCE.md" rel="noopener noreferrer">Design provenance</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/ATTRIBUTION.md" rel="noopener noreferrer">Attribution policy</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/CITATION.cff" rel="noopener noreferrer">Machine-readable citation</a></p>
 </main>
 </body>
 </html>
