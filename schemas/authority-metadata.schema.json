@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/authority-metadata.schema.json",
+  "title": "AgentAuth Authorization Server Metadata Extension",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "protocol_versions_supported",
+    "profiles_supported",
+    "proof_methods_supported",
+    "actor_types_supported"
+  ],
+  "properties": {
+    "version": {
+      "const": "0.2"
+    },
+    "protocol_versions_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "contains": {
+        "const": "0.2"
+      },
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+$"
+      }
+    },
+    "profiles_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^AA-[A-Z0-9-]+-[0-9]+$"
+      }
+    },
+    "proof_methods_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["dpop", "mtls"]
+      }
+    },
+    "actor_types_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "const": "ai_agent"
+      }
+    },
+    "agent_registration_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "agent_instance_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "grant_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "brokered_exchange_supported": {
+      "type": "boolean"
+    }
+  }
+}
