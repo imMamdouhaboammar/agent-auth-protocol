@@ -121,7 +121,7 @@ That mode has lower assurance than native Login as Agent.
 
 ## Canonical design documents
 
-- [Native Login as Agent](../05-native-login-as-agent.md)
-- [Protocol Ceremonies](../20-protocol-ceremonies.md)
-- [Agent SDK Contract](../18-agent-sdk-contract.md)
-- [Provider SDK Contract](../19-provider-sdk-contract.md)
+- [Native Login as Agent](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/05-native-login-as-agent.md)
+- [Protocol Ceremonies](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/20-protocol-ceremonies.md)
+- [Agent SDK Contract](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/18-agent-sdk-contract.md)
+- [Provider SDK Contract](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/19-provider-sdk-contract.md)
