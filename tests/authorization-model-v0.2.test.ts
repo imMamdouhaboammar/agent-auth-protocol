@@ -145,6 +145,7 @@ function constraintSubsumes(parent: Constraint, child: Constraint): boolean {
 }
 
 function capabilityCovered(parent: Capability, child: Capability): boolean {
+  if ((parent as any).type !== (child as any).type) return false;
   if (parent.action !== child.action) return false;
   if (!child.resources.every((resource) => parent.resources.includes(resource))) {
     return false;
@@ -163,6 +164,7 @@ function capabilityCovered(parent: Capability, child: Capability): boolean {
 }
 
 function grantAttenuates(parent: any, child: any): boolean {
+  if (parent.status !== "active") return false;
   if (child.parent_grant_id !== parent.grant_id) return false;
   if (
     child.subject.type !== parent.subject.type ||
@@ -171,6 +173,7 @@ function grantAttenuates(parent: any, child: any): boolean {
   ) return false;
 
   if (new Date(child.expires_at) > new Date(parent.expires_at)) return false;
+  if (parent.not_before && !child.not_before) return false;
   if (
     parent.not_before &&
     child.not_before &&
@@ -250,6 +253,18 @@ describe("AgentAuth v0.2 authorization and delegation model", () => {
 
   it("accepts a child grant that strictly attenuates its parent", () => {
     expect(grantAttenuates(parentGrant, childGrant)).toBe(true);
+  });
+
+  it("rejects delegation from an inactive parent", () => {
+    const inactive = structuredClone(parentGrant);
+    inactive.status = "revoked";
+    expect(grantAttenuates(inactive, childGrant)).toBe(false);
+  });
+
+  it("rejects removal of a parent not-before boundary", () => {
+    const invalid = structuredClone(childGrant);
+    delete invalid.not_before;
+    expect(grantAttenuates(parentGrant, invalid)).toBe(false);
   });
 
   it("rejects child Resource expansion", () => {
