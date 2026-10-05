@@ -25,7 +25,7 @@
       "pattern": "^sha-256:[A-Za-z0-9_-]{43}$"
     },
     "decision": {
-      "enum": ["approved", "denied"]
+      "const": "approved"
     },
     "approver": {
       "type": "object",
