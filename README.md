@@ -8,6 +8,8 @@
 
 **AgentAuth is an open system design and protocol profile for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native "Login as Agent".**
 
+In practical terms, AgentAuth defines **AI agent authentication** and authorization semantics that preserve who the Agent is, which runtime is acting, and whose authority it is using.
+
 It defines how a service can know that the caller is an AI agent, identify the durable Agent Principal and the current Agent Instance, preserve the human or organization represented by the agent, verify delegated authority, apply Provider-local policy, and keep the resulting action attributable and auditable.
 
 **Canonical source:** https://github.com/imMamdouhaboammar/agent-auth-protocol  
