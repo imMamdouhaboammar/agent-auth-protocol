@@ -203,3 +203,64 @@ A map from Action argument names to deterministic Constraint Predicates. When pr
 ## Direct Entitlement
 
 Positive authority assigned directly to an Agent Principal by an Authority or Provider, independent of a represented human Subject.
+
+
+## Trust Anchor
+
+Cryptographic or administrative trust material used to decide whether identity or attestation evidence from a Trust Domain can be accepted. Trust Anchors establish validation roots, not application permission.
+
+## Federation Peer
+
+An external Trust Domain with which a local Trust Domain has an explicit, bounded trust relationship. A Federation Peer is never trusted transitively by default.
+
+## Federation Policy
+
+The local rules defining which identity, attestation, audiences, actor classes, publishers, assurance properties, and delegation semantics may be accepted from a Federation Peer.
+
+## Attestation Evidence
+
+Signed or otherwise integrity-protected claims about the environment, software, hardware, workload, or measured state of an Agent Instance runtime.
+
+## Attestation Result
+
+The verifier-produced conclusion derived from Attestation Evidence and appraisal policy. An Attestation Result is a trust input and is not itself authorization.
+
+## Attestation Verifier
+
+The trusted evaluator that validates Attestation Evidence against reference values, endorsements, freshness requirements, and appraisal policy.
+
+## Runtime Assurance
+
+A local assessment of confidence in the environment operating an Agent Instance. Runtime Assurance may be unknown, software-backed, workload-backed, hardware-backed, or another locally defined class. Assurance labels are not globally ordered unless federation policy defines a mapping.
+
+## Enrollment Challenge
+
+A fresh, single-use challenge used during Agent Instance enrollment to prove possession of the Instance Proof Key and bind optional runtime evidence to the enrollment transaction.
+
+## Instance Proof Key
+
+The cryptographic key controlled by one Agent Instance and used to prove possession in AgentAuth protocol interactions. It is independent from Authority token-signing keys.
+
+## Authority Signing Key
+
+A key controlled by an Authority and used to sign credentials, metadata, or assertions issued by that Authority. It does not identify a running Agent Instance.
+
+## Key Epoch
+
+A versioned period during which a specific cryptographic key is authoritative for one identity or signing purpose. Rotation creates a new Key Epoch without changing the durable Agent Principal identity.
+
+## Trust Decision
+
+A local decision about whether identity, issuer, runtime, federation path, proof, and freshness evidence are acceptable for further authorization evaluation. A positive Trust Decision does not imply permission to perform an Action.
+
+## Federation Provenance
+
+The auditable chain of issuers, exchanges, mappings, and trust decisions through which a foreign Agent identity becomes acceptable to a local Provider Authority.
+
+## Reference Values
+
+Expected measurements, identities, versions, or configuration properties used by an Attestation Verifier to appraise Attestation Evidence.
+
+## Endorsement
+
+Trusted information from a manufacturer, platform operator, workload authority, or another recognized source that helps an Attestation Verifier interpret or validate Attestation Evidence.
