@@ -1,0 +1,24 @@
+{
+  "intent_version": "0.2",
+  "provider": "https://payments.example.com",
+  "subject": {
+    "type": "human",
+    "issuer": "https://id.example.com",
+    "id": "user_123"
+  },
+  "actor": {
+    "issuer": "https://agents.example.com",
+    "id": "finance-agent"
+  },
+  "instance_id": "inst_456",
+  "grant_id": "grant_789",
+  "action": "payment.create",
+  "resource": "urn:account:123",
+  "arguments": {
+    "amount": "250.00",
+    "currency": "USD",
+    "recipient": "urn:payee:42"
+  },
+  "expires_at": "2026-10-05T13:00:00Z",
+  "nonce": "n_12345678"
+}
