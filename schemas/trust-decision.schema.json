@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/trust-decision.schema.json",
+  "title": "AgentAuth Trust Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "decision_id",
+    "decision",
+    "agent_issuer",
+    "agent_id",
+    "instance_id",
+    "credential_issuer",
+    "proof_method",
+    "policy_version",
+    "reason_codes",
+    "evaluated_at"
+  ],
+  "properties": {
+    "decision_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "decision": {
+      "enum": ["accept", "reject", "indeterminate"]
+    },
+    "agent_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "instance_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "credential_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "federation_path": {
+      "type": "array",
+      "uniqueItems": false,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "proof_method": {
+      "enum": ["dpop", "mtls"]
+    },
+    "attestation_result_id": {
+      "type": ["string", "null"],
+      "maxLength": 256
+    },
+    "runtime_assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["accepted", "rejected", "indeterminate", "unavailable", "not_required"]
+        },
+        "class": {
+          "type": ["string", "null"],
+          "maxLength": 128
+        }
+      }
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "reason_codes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

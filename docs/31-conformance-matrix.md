@@ -10,6 +10,7 @@ AgentAuth v0.2 defines:
 - `AA-PROVIDER-WEB-1`
 - `AA-DELEGATION-1`
 - `AA-FEDERATION-1`
+- `AA-ATTESTATION-1`
 
 A product MUST NOT claim a profile unless it satisfies every MUST in that profile.
 
@@ -37,6 +38,9 @@ A product MUST NOT claim a profile unless it satisfies every MUST in that profil
 | explicit federation trust | | SHOULD | SHOULD | SHOULD | | MUST |
 | revocation freshness policy | MUST honor | MUST expose | MUST enforce | MUST enforce | MUST | MUST |
 | audit actor provenance | SHOULD | MUST | MUST | MUST | MUST | MUST |
+| explicit non-transitive federation | | SHOULD | SHOULD | SHOULD | | MUST |
+| Instance Proof Key / Authority Signing Key separation | MUST | MUST | MUST validate | MUST validate | | MUST preserve |
+| runtime attestation as trust input only | MUST honor | MUST honor | MUST honor | MUST honor | | SHOULD preserve |
 
 Blank cells mean the requirement is outside that profile, not forbidden.
 
@@ -127,7 +131,42 @@ A conforming federation implementation MUST prove:
 - key rotation overlap behaves deterministically
 - unknown mandatory semantics fail closed
 
-## 9. Interoperability criterion
+## 9. AA-ATTESTATION-1 minimum tests
+
+A conforming attestation implementation MUST prove:
+
+- Attestation Evidence integrity is validated
+- Attestation Verifier identity is trusted
+- freshness is evaluated
+- Agent Instance and Proof Key binding is verified where required
+- accepted, rejected, indeterminate, and unavailable states remain distinct
+- unknown mandatory attestation semantics fail closed
+- an accepted Attestation Result cannot expand Capability authority
+- local assurance classes are not treated as globally ordered
+- expired Attestation Results do not silently remain current
+
+## 10. Trust and federation additions
+
+AA-FEDERATION-1 additionally requires:
+
+- peer trust is directional
+- no hidden transitive trust
+- peer metadata freshness is bounded
+- peer removal blocks new foreign authorization
+- brokered exchange preserves canonical `agent_issuer`
+- Subject and Actor survive exchange
+- claim mapping cannot expand authority
+- key rotation overlap is bounded and deterministic
+
+AA-AUTHORITY-1 additionally requires:
+
+- enrollment challenges are fresh and single-use
+- enrollment proves possession of the Instance Proof Key
+- enrollment requests cannot contain private key material
+- Instance key loss does not fabricate old-key continuity
+- Instance revocation does not revoke sibling Instances by implication
+
+## 11. Interoperability criterion
 
 The protocol design is sufficiently frozen for reference implementation when:
 
@@ -135,7 +174,7 @@ The protocol design is sufficiently frozen for reference implementation when:
 
 This criterion is stronger than successful operation of one vertically integrated implementation.
 
-## 10. Non-conformance
+## 12. Non-conformance
 
 An implementation is not AgentAuth-native merely because it:
 
@@ -149,7 +188,7 @@ An implementation is not AgentAuth-native merely because it:
 Conformance requires the selected AgentAuth profile semantics.
 
 
-## 11. Authorization-model conformance additions
+## 13. Authorization-model conformance additions
 
 AA-DELEGATION-1 and AA-PROVIDER-API-1 additionally require:
 

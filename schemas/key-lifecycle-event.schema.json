@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/key-lifecycle-event.schema.json",
+  "title": "AgentAuth Key Lifecycle Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "key_class",
+    "key_id",
+    "epoch",
+    "event_type",
+    "occurred_at",
+    "reason"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "key_class": {
+      "enum": [
+        "instance_proof",
+        "authority_signing",
+        "federation",
+        "attestation"
+      ]
+    },
+    "key_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "issuer_or_instance": {
+      "type": ["string", "null"],
+      "maxLength": 2048
+    },
+    "epoch": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "event_type": {
+      "enum": [
+        "generated",
+        "published",
+        "activated",
+        "rotated",
+        "retired",
+        "revoked",
+        "compromised"
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "emergency": {
+      "type": "boolean"
+    }
+  }
+}

@@ -113,12 +113,21 @@ Trust policy includes:
 
 - accepted audiences
 - accepted agent owners or publishers
-- minimum runtime trust tier
+- required runtime assurance properties
 - maximum delegation depth
 - allowed actions
 - whether external Subjects are accepted
 
 No transitive federation by default.
+
+The normative v0.2 trust and federation semantics are defined in:
+
+- `docs/40-trust-domain-model.md`
+- `docs/41-federation-protocol.md`
+- `docs/44-key-lifecycle.md`
+- `docs/45-federated-token-exchange.md`
+- `docs/46-trust-decision-algorithm.md`
+- `docs/47-spiffe-workload-bridge.md`
 
 ## SPIFFE integration
 
@@ -131,6 +140,8 @@ In environments that already use SPIFFE:
 5. downstream Resource Server sees AgentAuth Subject and Actor semantics
 
 SPIFFE remains workload identity. AgentAuth adds agent registration, delegation, authorization, and application-facing actor semantics.
+
+A SPIFFE identity MUST be explicitly mapped to an Agent Principal. Valid workload identity alone does not authorize selection of an arbitrary Agent Principal.
 
 ## Key management
 

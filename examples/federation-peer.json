@@ -1,0 +1,28 @@
+{
+  "peer_id": "peer_agents_example",
+  "local_trust_domain": "https://provider.example.com",
+  "peer_trust_domain": "https://agents.example.com",
+  "direction": "inbound",
+  "status": "active",
+  "accepted_issuers": [
+    "https://auth.agents.example.com"
+  ],
+  "allowed_actor_types": ["ai_agent"],
+  "allowed_authority_modes": ["direct", "delegated"],
+  "allowed_audiences": [
+    "https://api.provider.example.com"
+  ],
+  "accepted_agent_publishers": [
+    "urn:publisher:example-ai"
+  ],
+  "max_delegation_depth": 1,
+  "require_brokered_exchange": true,
+  "require_attestation": true,
+  "accepted_assurance_classes": [
+    "workload-backed",
+    "hardware-backed"
+  ],
+  "activated_at": "2026-10-05T12:00:00Z",
+  "expires_at": "2027-10-05T12:00:00Z",
+  "metadata_max_age_seconds": 3600
+}

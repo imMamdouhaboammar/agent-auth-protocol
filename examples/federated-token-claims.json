@@ -1,0 +1,23 @@
+{
+  "iss": "https://auth.provider.example.com",
+  "sub": "user_789",
+  "aud": "https://api.provider.example.com",
+  "iat": 1791194400,
+  "exp": 1791194700,
+  "jti": "tok_fed_01",
+  "act": {
+    "sub": "agent-local-17"
+  },
+  "cnf": {
+    "jkt": "foreign-instance-thumbprint"
+  },
+  "urn:agentauth:claims:v1": {
+    "protocol_version": "0.2",
+    "actor_type": "ai_agent",
+    "agent_issuer": "https://agents.example.com",
+    "agent_id": "agent_123",
+    "instance_id": "inst_456",
+    "authority_mode": "delegated",
+    "grant_id": "grant_local_mapping_9"
+  }
+}

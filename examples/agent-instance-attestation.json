@@ -1,0 +1,22 @@
+{
+  "attestation_result_id": "attres_123",
+  "verifier": "https://verifier.example.com",
+  "evidence_profile": "eat-workload-v1",
+  "status": "accepted",
+  "agent_issuer": "https://agents.example.com",
+  "instance_id": "inst_456",
+  "proof_key_thumbprint": "thumbprint-example-123",
+  "assurance_class": "workload-backed",
+  "assurance_properties": [
+    "debug-disabled",
+    "approved-runtime-image"
+  ],
+  "appraisal_policy_version": "runtime-policy-v7",
+  "issued_at": "2026-10-05T12:00:00Z",
+  "expires_at": "2026-10-05T12:10:00Z",
+  "reason_codes": [
+    "EVIDENCE_VALID",
+    "PROOF_KEY_BOUND",
+    "REFERENCE_VALUES_MATCHED"
+  ]
+}

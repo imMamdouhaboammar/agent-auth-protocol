@@ -1,0 +1,16 @@
+{
+  "trust_domain": "https://identity.example.com",
+  "protocol_versions_supported": ["0.2"],
+  "authorities": [
+    "https://auth.identity.example.com"
+  ],
+  "actor_types_supported": ["ai_agent"],
+  "proof_methods_supported": ["dpop", "mtls"],
+  "attestation_formats_supported": [
+    "application/eat+jwt"
+  ],
+  "federation_metadata_endpoint": "https://identity.example.com/.well-known/agentauth-federation",
+  "jwks_uri": "https://auth.identity.example.com/.well-known/jwks.json",
+  "administrative_contact": "https://identity.example.com/security",
+  "metadata_expires_at": "2026-10-06T12:00:00Z"
+}

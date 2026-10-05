@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/agent-instance-attestation.schema.json",
+  "title": "AgentAuth Attestation Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "attestation_result_id",
+    "verifier",
+    "evidence_profile",
+    "status",
+    "agent_issuer",
+    "instance_id",
+    "proof_key_thumbprint",
+    "appraisal_policy_version",
+    "issued_at",
+    "expires_at",
+    "reason_codes"
+  ],
+  "properties": {
+    "attestation_result_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "verifier": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "evidence_profile": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "status": {
+      "enum": ["accepted", "rejected", "indeterminate", "unavailable"]
+    },
+    "agent_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "instance_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "proof_key_thumbprint": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 512
+    },
+    "assurance_class": {
+      "type": ["string", "null"],
+      "maxLength": 128
+    },
+    "assurance_properties": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 256
+      }
+    },
+    "appraisal_policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reason_codes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    }
+  }
+}

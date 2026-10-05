@@ -1,0 +1,19 @@
+{
+  "protocol_version": "0.2",
+  "challenge_id": "enr_challenge_123",
+  "agent_issuer": "https://agents.example.com",
+  "agent_id": "agent_123",
+  "proof_key": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "example-x",
+    "y": "example-y"
+  },
+  "proof_algorithm": "ES256",
+  "challenge_signature": "base64url-signature-value",
+  "attestation_result_ref": "attres_123",
+  "workload_identity": {
+    "type": "spiffe",
+    "id": "spiffe://prod.example/ns/agents/sa/researcher"
+  }
+}

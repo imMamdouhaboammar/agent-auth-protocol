@@ -52,6 +52,12 @@ AgentAuth-specific JSON errors SHOULD use:
 | `agentauth_bootstrap_replayed` | 409 | yes | no | one-time bootstrap already consumed |
 | `agentauth_idempotency_conflict` | 409 | yes | no | same key used with different request |
 | `agentauth_policy_denied` | 403 | no | maybe | Provider local policy denied action |
+| `agentauth_federation_not_trusted` | 403 | maybe | maybe | no accepted federation path exists |
+| `agentauth_federation_disabled` | 403 | maybe | maybe | configured Federation Peer is suspended or removed |
+| `agentauth_attestation_required` | 403 | yes | maybe | selected trust policy requires Runtime Attestation |
+| `agentauth_attestation_rejected` | 403 | maybe | maybe | Attestation Result failed appraisal |
+| `agentauth_attestation_indeterminate` | 403 | maybe | maybe | required attestation could not be established |
+| `agentauth_key_epoch_invalid` | 401 | yes | maybe | signing, federation, or Instance key epoch is retired or invalid |
 
 The two-status entry for `agentauth_not_supported` reflects whether the failure occurs during a known protocol endpoint request or discovery of a non-existent optional endpoint.
 
@@ -89,6 +95,8 @@ The following SHOULD NOT be automatically retried without state change:
 - untrusted Authority
 - Provider policy denial
 - denied consent
+- removed Federation Peer
+- rejected mandatory attestation
 
 ## 6. Interaction required
 

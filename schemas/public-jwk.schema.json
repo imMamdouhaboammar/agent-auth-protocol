@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/public-jwk.schema.json",
+  "title": "AgentAuth Public Asymmetric JWK",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kty", "crv", "x", "y"],
+      "properties": {
+        "kty": { "const": "EC" },
+        "crv": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "x": { "type": "string", "minLength": 1 },
+        "y": { "type": "string", "minLength": 1 },
+        "kid": { "type": "string", "maxLength": 256 },
+        "use": { "enum": ["sig"] },
+        "alg": { "type": "string", "maxLength": 64 }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kty", "n", "e"],
+      "properties": {
+        "kty": { "const": "RSA" },
+        "n": { "type": "string", "minLength": 1 },
+        "e": { "type": "string", "minLength": 1 },
+        "kid": { "type": "string", "maxLength": 256 },
+        "use": { "enum": ["sig"] },
+        "alg": { "type": "string", "maxLength": 64 }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kty", "crv", "x"],
+      "properties": {
+        "kty": { "const": "OKP" },
+        "crv": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "x": { "type": "string", "minLength": 1 },
+        "kid": { "type": "string", "maxLength": 256 },
+        "use": { "enum": ["sig"] },
+        "alg": { "type": "string", "maxLength": 64 }
+      }
+    }
+  ]
+}
