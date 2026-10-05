@@ -1,0 +1,129 @@
+---
+layout: null
+permalink: /
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgentAuth Protocol | AI Agent Identity, Authentication & Authorization</title>
+  <meta name="description" content="AgentAuth is an open protocol and system design for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native Login as Agent.">
+  <link rel="canonical" href="https://immamdouhaboammar.github.io/agent-auth-protocol/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AgentAuth Protocol">
+  <meta property="og:description" content="Open system design for AI agent identity, authentication, authorization, delegation, federation, attestation, and native Login as Agent.">
+  <meta property="og:url" content="https://immamdouhaboammar.github.io/agent-auth-protocol/">
+  <meta property="og:site_name" content="AgentAuth Protocol">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AgentAuth Protocol">
+  <meta name="twitter:description" content="AI agent identity, authentication, authorization, delegation, federation, attestation, and native Login as Agent.">
+  <meta name="author" content="Mamdouh Aboammar">
+  <meta name="keywords" content="AI agent authentication, AI agent identity, agent authorization, Login as Agent, agent delegation, non-human identity, AI agent OAuth, MCP authorization, AI agent federation, agentic authentication">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "AgentAuth Protocol v0.2",
+        "description": "System design for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native Login as Agent.",
+        "datePublished": "2026-10-05",
+        "dateModified": "2026-10-05",
+        "author": {
+          "@type": "Person",
+          "name": "Mamdouh Aboammar",
+          "url": "https://mamdouhaboammar.com",
+          "sameAs": [
+            "https://github.com/imMamdouhaboammar",
+            "https://www.linkedin.com/in/mamdouh-aboammar/"
+          ]
+        },
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": {
+          "@type": "CreativeWork",
+          "name": "AgentAuth Protocol",
+          "url": "https://github.com/imMamdouhaboammar/agent-auth-protocol"
+        }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "name": "AgentAuth Protocol",
+        "codeRepository": "https://github.com/imMamdouhaboammar/agent-auth-protocol",
+        "programmingLanguage": ["TypeScript", "JSON Schema", "Markdown"],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "author": {
+          "@type": "Person",
+          "name": "Mamdouh Aboammar"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { color-scheme: light dark; --max: 980px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; line-height: 1.65; }
+    main { max-width: var(--max); margin: 0 auto; padding: 48px 24px 72px; }
+    h1 { font-size: clamp(2.3rem, 7vw, 4.8rem); line-height: 1.05; margin-bottom: 18px; }
+    h2 { margin-top: 48px; }
+    .lead { font-size: 1.2rem; max-width: 820px; }
+    .meta { opacity: .75; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; }
+    .card { border: 1px solid currentColor; border-radius: 12px; padding: 18px; opacity: .95; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    pre { overflow-x: auto; padding: 16px; border: 1px solid currentColor; border-radius: 10px; }
+    a { text-underline-offset: 3px; }
+  </style>
+</head>
+<body>
+<main>
+  <p class="meta">AgentAuth v0.2 draft · System Design · Canonical source on GitHub</p>
+  <h1>AgentAuth Protocol</h1>
+  <p class="lead"><strong>AgentAuth is an open system design for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native “Login as Agent”.</strong></p>
+
+  <p>It defines how a target service can know that an AI agent is acting, identify the durable Agent Principal and current Agent Instance, preserve the represented human or organization, verify scoped delegated authority, and keep the resulting action attributable and auditable.</p>
+
+  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol">View the canonical repository</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/24-normative-protocol-core.md">Read the normative protocol core</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/HOW_TO_CITE.md">How to cite AgentAuth</a></p>
+
+  <h2>What does AgentAuth solve?</h2>
+  <p>OAuth clients, service accounts, workloads, and browser sessions do not automatically express the full identity of an AI agent. AgentAuth separates the represented Subject, the AI Agent Actor, the running Agent Instance, the Delegation Grant, proof-of-possession, Provider policy, and the final Agent-aware session.</p>
+
+  <pre>Subject        = represented human / organization / workload / Agent
+Agent Actor    = durable AI Agent Principal
+Agent Instance = current runtime with its own proof key
+Grant          = explicit scoped delegated authority
+Provider       = final local authorization authority</pre>
+
+  <h2>What is Login as Agent?</h2>
+  <p>Login as Agent is a native authentication flow in which the target intentionally accepts an AI Agent Actor and preserves that fact in its server-side authorization and session state. It is not a bot typing a human password, a special User-Agent string, or an ordinary OAuth client identifier.</p>
+  <p><a href="guides/login-as-agent/">Read: How Login as Agent works</a></p>
+
+  <h2>Core design areas</h2>
+  <div class="grid">
+    <div class="card"><strong>Identity</strong><br>Agent Principal, Agent Instance, represented Subject, issuer-qualified identity.</div>
+    <div class="card"><strong>Authentication</strong><br>Proof-bound credentials, DPoP or mTLS, native Agent sessions.</div>
+    <div class="card"><strong>Authorization</strong><br>Capabilities, deterministic constraints, Provider policy, progressive consent.</div>
+    <div class="card"><strong>Delegation</strong><br>Subject/Actor separation and child authority that can only attenuate.</div>
+    <div class="card"><strong>Federation</strong><br>Explicit directional trust, direct or brokered Provider trust, no hidden transitivity.</div>
+    <div class="card"><strong>Attestation</strong><br>Runtime evidence as a trust input, never as an automatic permission grant.</div>
+  </div>
+
+  <h2>Standards-first</h2>
+  <p>AgentAuth composes existing standards rather than replacing them. The design reuses OAuth, OpenID Connect, Token Exchange, DPoP, mTLS, Rich Authorization Requests, Protected Resource Metadata, RATS, EAT, and SPIFFE concepts where they already solve the lower-level security problem.</p>
+
+  <h2>Start with the question you have</h2>
+  <div class="grid">
+    <div class="card"><a href="guides/what-is-agentauth/"><strong>What is AgentAuth?</strong></a><br>Core purpose, identity model, and protocol boundaries.</div>
+    <div class="card"><a href="guides/login-as-agent/"><strong>How does an AI agent log in?</strong></a><br>Native Login as Agent and Agent-aware sessions.</div>
+    <div class="card"><a href="guides/agentauth-vs-oauth-mcp-spiffe/"><strong>AgentAuth vs OAuth, MCP, SPIFFE</strong></a><br>What AgentAuth adds and what it deliberately reuses.</div>
+    <div class="card"><a href="guides/faq/"><strong>AgentAuth FAQ</strong></a><br>Short answers for common implementation and security questions.</div>
+  </div>
+
+  <h2>Authorship, citation, and reuse</h2>
+  <p>The original integrated AgentAuth system design was initiated and authored by <strong>Mamdouh Aboammar</strong>. Software, tests, schemas, and reference implementation material are Apache-2.0 unless otherwise noted. Original documentation prose and diagrams are CC BY 4.0 unless otherwise noted.</p>
+  <p>Implementers who use AgentAuth as a direct technical reference are requested to cite the canonical repository as design provenance. Documentation reuse remains subject to the applicable CC BY 4.0 attribution requirements.</p>
+
+  <p><a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/DESIGN_PROVENANCE.md">Design provenance</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/ATTRIBUTION.md">Attribution policy</a> · <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/CITATION.cff">Machine-readable citation</a></p>
+</main>
+</body>
+</html>
