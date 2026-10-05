@@ -121,3 +121,32 @@ Authority assigned directly to an Agent Principal without a human Subject. This 
 ## Delegated Agent Authority
 
 Authority exercised by an Agent Principal on behalf of another Subject. The authorization evidence identifies both Subject and Actor.
+
+
+## Home Authority
+
+The identity authority that establishes an Agent Principal or Agent Instance in its native Trust Domain. A Home Authority is not automatically trusted by every Provider.
+
+## Provider Authority
+
+An authorization authority trusted by a Provider. A Provider Authority may validate or exchange external Agent identity and issue Provider-local credentials. It may be the same deployment as the Home Authority.
+
+## Provider Agent Account
+
+A Provider-local account or relationship mapped to an issuer-qualified Agent Principal. It represents the Provider's local relationship with the Agent Principal and is not itself an Agent Identity credential.
+
+## AgentAuth Context
+
+The immutable trusted authorization context produced after Provider authentication. It preserves the represented Subject, Agent Principal, Agent Instance, authority mode, issuer provenance, grant reference when applicable, proof method, selected protocol version, and credential expiry.
+
+## Protocol Version
+
+A registered AgentAuth interoperability version selected through metadata negotiation. Protocol Version identifies wire semantics and is distinct from SDK package versions or product release versions.
+
+## Issuer-Qualified Agent Identity
+
+The pair of an Agent identity issuer and the issuer-local Agent identifier. Bare Agent identifiers are not globally unique.
+
+## Idempotency Key
+
+An opaque retry key associated with one authenticated caller, operation, and request digest so a side-effecting protocol operation can be safely retried without creating duplicate effects.
