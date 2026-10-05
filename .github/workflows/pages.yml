@@ -46,6 +46,14 @@ jobs:
         if: steps.pages_state.outputs.enabled == 'true'
         uses: actions/checkout@v6
 
+      - name: Stage machine-readable discovery files
+        if: steps.pages_state.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          cp llms.txt docs/llms.txt
+          cp llms-full.txt docs/llms-full.txt
+          cp CITATION.cff docs/CITATION.cff
+
       - name: Configure Pages
         if: steps.pages_state.outputs.enabled == 'true'
         id: pages
