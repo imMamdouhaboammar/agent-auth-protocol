@@ -1,0 +1,23 @@
+{
+  "policy_id": "provider-trust-default",
+  "policy_version": "trust-v9",
+  "accepted_trust_domains": [
+    "https://provider.example.com",
+    "https://agents.example.com"
+  ],
+  "accepted_proof_methods": [
+    "dpop"
+  ],
+  "require_attestation": true,
+  "accepted_attestation_verifiers": [
+    "https://verifier.example.com"
+  ],
+  "accepted_assurance_classes": [
+    "workload-backed",
+    "hardware-backed"
+  ],
+  "max_attestation_age_seconds": 600,
+  "max_metadata_age_seconds": 3600,
+  "max_token_lifetime_seconds": 300,
+  "unknown_mandatory_semantics": "reject"
+}
