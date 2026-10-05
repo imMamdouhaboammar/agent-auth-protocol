@@ -122,6 +122,8 @@ describe("AgentAuth publication, citation, and discoverability", () => {
 
     expect(workflow).toContain("actions/jekyll-build-pages@v1");
     expect(workflow).toContain("actions/deploy-pages@v4");
+    expect(workflow).toContain("cp llms.txt docs/llms.txt");
+    expect(workflow).toContain("cp CITATION.cff docs/CITATION.cff");
     expect(workflow).toContain("GitHub Pages is not enabled");
     expect(workflow).not.toContain("enablement: true");
   });
