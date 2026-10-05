@@ -62,26 +62,40 @@ A successful authentication creates immutable request context similar to:
 
 ```json
 {
-  "actor_type": "ai_agent",
-  "agent_id": "urn:agentauth:agent:123",
-  "instance_id": "inst_456",
+  "protocol_version": "0.2",
+  "actor": {
+    "type": "ai_agent",
+    "issuer": "https://agents.example.com",
+    "id": "agent_123"
+  },
+  "instance": {
+    "issuer": "https://agents.example.com",
+    "id": "inst_456"
+  },
   "subject": {
     "type": "human",
-    "id": "urn:subject:user:789"
+    "issuer": "https://authority.example",
+    "id": "user_789"
   },
-  "authority_mode": "delegated",
-  "grant_id": "grant_abc",
-  "issuer": "https://authority.example",
-  "audience": "https://provider.example",
+  "authority": {
+    "mode": "delegated",
+    "grant_id": "grant_abc"
+  },
+  "token": {
+    "issuer": "https://authority.example",
+    "audience": "https://provider.example",
+    "expires_at": "2026-10-05T12:05:00Z"
+  },
   "proof": {
     "method": "dpop",
     "key_thumbprint": "..."
-  },
-  "expires_at": "2026-10-05T12:05:00Z"
+  }
 }
 ```
 
 Application code SHOULD consume this context rather than re-parsing raw token claims.
+
+The normative shape is `schemas/agentauth-context.schema.json`.
 
 ## Provider metadata
 
@@ -140,8 +154,8 @@ A Provider MAY allow an Agent Principal to create a Provider-local Agent Account
 The account SHOULD contain:
 
 - Provider account id
+- Agent Principal issuer
 - Agent Principal id
-- trusted issuer
 - owner or publisher references where policy permits
 - local role assignments
 - status
