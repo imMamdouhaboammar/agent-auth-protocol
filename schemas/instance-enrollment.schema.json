@@ -33,8 +33,7 @@
       "maxLength": 256
     },
     "proof_key": {
-      "type": "object",
-      "minProperties": 2
+      "$ref": "https://agentauth.dev/schemas/public-jwk.schema.json"
     },
     "proof_algorithm": {
       "type": "string",
