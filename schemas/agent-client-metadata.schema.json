@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/agent-client-metadata.schema.json",
+  "title": "AgentAuth Agent Client Metadata Extension",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_id",
+    "profiles_supported",
+    "proof_methods_supported"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "agent_metadata_uri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "profiles_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^AA-[A-Z0-9-]+-[0-9]+$"
+      }
+    },
+    "proof_methods_supported": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["dpop", "mtls"]
+      }
+    },
+    "software_statement": {
+      "type": "string",
+      "minLength": 16
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/agentauth-challenge.schema.json",
+  "title": "AgentAuth Structured Challenge",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error", "agentauth"],
+  "properties": {
+    "error": {
+      "type": "string",
+      "enum": [
+        "agentauth_grant_required",
+        "agentauth_step_up_required",
+        "agentauth_insufficient_authority",
+        "agentauth_proof_required",
+        "agentauth_profile_required"
+      ]
+    },
+    "error_description": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "agentauth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_profile": {
+          "type": "string",
+          "pattern": "^AA-[A-Z0-9-]+-[0-9]+$"
+        },
+        "required_action": {
+          "type": "string",
+          "enum": [
+            "request_grant",
+            "human_approval",
+            "stronger_proof",
+            "reauthenticate",
+            "register_agent_account"
+          ]
+        },
+        "authorization_details": {
+          "type": "object"
+        },
+        "approval_uri": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "expires_in": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3600
+        }
+      }
+    }
+  }
+}
