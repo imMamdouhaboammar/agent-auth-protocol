@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agentauth:schema:delegation-grant:v1",
+  "title": "AgentAuth Delegation Grant",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "grant_id",
+    "issuer",
+    "subject",
+    "actor_agent_id",
+    "capabilities",
+    "expires_at",
+    "status"
+  ],
+  "properties": {
+    "grant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "issuer": {
+      "type": "string",
+      "format": "uri"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "human",
+            "organization",
+            "workload",
+            "ai_agent"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "actor_agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_grant_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "purpose": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 500
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "action",
+          "resources"
+        ],
+        "properties": {
+          "action": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "constraints": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "not_before": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "max_delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16
+    },
+    "status": {
+      "enum": [
+        "pending",
+        "active",
+        "denied",
+        "revoked",
+        "expired"
+      ]
+    }
+  }
+}

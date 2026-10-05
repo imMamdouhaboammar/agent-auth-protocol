@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agentauth:schema:claims:v1",
+  "title": "AgentAuth Extension Claims",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "actor_type",
+    "agent_id",
+    "instance_id",
+    "authority_mode"
+  ],
+  "properties": {
+    "actor_type": {
+      "const": "ai_agent"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "grant_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "purpose": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 500
+    },
+    "authority_mode": {
+      "enum": [
+        "direct",
+        "delegated"
+      ]
+    },
+    "delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16
+    },
+    "trust_tier": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

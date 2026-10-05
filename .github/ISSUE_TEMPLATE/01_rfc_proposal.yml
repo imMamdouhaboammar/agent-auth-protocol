@@ -1,0 +1,42 @@
+name: "RFC / Specification Proposal"
+description: Propose an extension, change, or new capability to the AgentAuth Protocol specification.
+title: "[RFC]: "
+labels: ["rfc", "specification"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting an RFC to the AgentAuth Protocol specification!
+        Please review the existing specifications in `/docs/` and ADRs in `/docs/adr/` before submitting.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Executive Summary
+      description: Provide a concise summary of the proposed specification change or extension.
+      placeholder: Summary of the RFC...
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Problem Statement
+      description: What limitation, security issue, or agent capability does this address?
+      placeholder: Describe the problem this RFC solves...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Detailed Design Proposal
+      description: Detail protocol modifications, token claim extensions, schema updates, or API alterations.
+      placeholder: Proposed schema/protocol changes...
+    validations:
+      required: true
+  - type: textarea
+    id: backwards-compatibility
+    attributes:
+      label: Compatibility & Security Considerations
+      description: Does this introduce breaking changes? What are the threat model implications?
+      placeholder: Compatibility considerations...
+    validations:
+      required: true

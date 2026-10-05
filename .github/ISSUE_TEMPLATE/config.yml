@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability Reporting
+    url: https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/SECURITY.md
+    about: Please report security vulnerabilities privately via email.
+  - name: AgentAuth Discussions & RFCs
+    url: https://github.com/imMamdouhaboammar/agent-auth-protocol/discussions
+    about: Ask questions and discuss architecture proposals with the community.

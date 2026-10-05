@@ -1,0 +1,34 @@
+name: "Bug Report / Spec Discrepancy"
+description: Report an inconsistency, error, or ambiguity in the specification or schemas.
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please report errors, typos, contradictory requirements, or invalid schemas.
+        For sensitive security vulnerabilities, refer to [SECURITY.md](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/SECURITY.md).
+  - type: input
+    id: location
+    attributes:
+      label: Affected Document or Schema
+      description: Specific document (e.g. `docs/04-protocol-design.md`, `schemas/delegation-grant.schema.json`).
+      placeholder: docs/... or schemas/...
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of the Discrepancy
+      description: What is incorrect or inconsistent?
+      placeholder: Description of the discrepancy...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior / Specification
+      description: What should the specification state or schema validate?
+      placeholder: Expected behavior...
+    validations:
+      required: true

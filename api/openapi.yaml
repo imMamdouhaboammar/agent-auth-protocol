@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: AgentAuth Management and Integration API
+  version: 0.1.0
+  description: >
+    Draft API for Agent Principal registration, Agent Instance lifecycle,
+    delegation grants, policy decisions, browser session bootstrap, and audit queries.
+    OAuth protocol endpoints remain governed by OAuth specifications.
+servers:
+  - url: https://auth.example.com
+security:
+  - oauth2: [agentauth.manage]
+paths:
+  /v1/agents:
+    post:
+      summary: Register an Agent Principal
+      operationId: registerAgent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [definition, owner_subject]
+              properties:
+                definition:
+                  type: object
+                owner_subject:
+                  type: string
+      responses:
+        "201":
+          description: Agent registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentPrincipal"
+  /v1/agents/{agent_id}/instances:
+    post:
+      summary: Register an Agent Instance
+      operationId: registerInstance
+      parameters:
+        - $ref: "#/components/parameters/AgentId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof_key]
+              properties:
+                proof_key:
+                  type: object
+                workload_identity:
+                  type: string
+                attestation_evidence:
+                  type: object
+      responses:
+        "201":
+          description: Instance registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentInstance"
+  /v1/instances/{instance_id}/revoke:
+    post:
+      summary: Revoke an Agent Instance
+      operationId: revokeInstance
+      parameters:
+        - name: instance_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RevocationRequest"
+      responses:
+        "204":
+          description: Revoked
+  /v1/grants:
+    post:
+      summary: Create a Delegation Grant request
+      operationId: createGrant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GrantRequest"
+      responses:
+        "201":
+          description: Grant request created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grant"
+  /v1/grants/{grant_id}/approve:
+    post:
+      summary: Approve a pending grant
+      operationId: approveGrant
+      parameters:
+        - $ref: "#/components/parameters/GrantId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approver_subject]
+              properties:
+                approver_subject:
+                  type: string
+                approval_evidence:
+                  type: object
+      responses:
+        "200":
+          description: Grant active
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Grant"
+  /v1/grants/{grant_id}/revoke:
+    post:
+      summary: Revoke grant and descendants
+      operationId: revokeGrant
+      parameters:
+        - $ref: "#/components/parameters/GrantId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RevocationRequest"
+      responses:
+        "204":
+          description: Revoked
+  /v1/policy/decide:
+    post:
+      summary: Evaluate an AgentAuth action
+      operationId: decide
+      security:
+        - oauth2: [agentauth.policy.evaluate]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PolicyDecisionRequest"
+      responses:
+        "200":
+          description: Decision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyDecision"
+  /v1/agent-sessions:
+    post:
+      summary: Create a one-time native browser session bootstrap
+      operationId: createAgentSession
+      security:
+        - dpop: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [target_origin]
+              properties:
+                target_origin:
+                  type: string
+                  format: uri
+                return_path:
+                  type: string
+                requested_session_ttl_seconds:
+                  type: integer
+                  minimum: 60
+                  maximum: 3600
+      responses:
+        "201":
+          description: Bootstrap created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [bootstrap_url, expires_in]
+                properties:
+                  bootstrap_url:
+                    type: string
+                    format: uri
+                  expires_in:
+                    type: integer
+  /v1/audit/events:
+    get:
+      summary: Query audit index
+      operationId: queryAudit
+      parameters:
+        - name: trace_id
+          in: query
+          schema:
+            type: string
+        - name: agent_id
+          in: query
+          schema:
+            type: string
+        - name: grant_id
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Audit events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    AgentId:
+      name: agent_id
+      in: path
+      required: true
+      schema:
+        type: string
+    GrantId:
+      name: grant_id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    AgentPrincipal:
+      type: object
+      required: [agent_id, status]
+      properties:
+        agent_id:
+          type: string
+        status:
+          enum: [active, suspended, revoked]
+    AgentInstance:
+      type: object
+      required: [instance_id, agent_id, status]
+      properties:
+        instance_id:
+          type: string
+        agent_id:
+          type: string
+        status:
+          enum: [pending, active, suspended, revoked]
+        proof_key_thumbprint:
+          type: string
+    GrantRequest:
+      type: object
+      required: [subject, actor_agent_id, capabilities, expires_at]
+      properties:
+        subject:
+          type: object
+        actor_agent_id:
+          type: string
+        parent_grant_id:
+          type: string
+        purpose:
+          type: string
+        capabilities:
+          type: array
+          minItems: 1
+          items:
+            type: object
+        expires_at:
+          type: string
+          format: date-time
+        max_delegation_depth:
+          type: integer
+          minimum: 0
+    Grant:
+      allOf:
+        - $ref: "#/components/schemas/GrantRequest"
+        - type: object
+          required: [grant_id, status]
+          properties:
+            grant_id:
+              type: string
+            status:
+              enum: [pending, active, denied, revoked, expired]
+    RevocationRequest:
+      type: object
+      required: [reason_code]
+      properties:
+        reason_code:
+          type: string
+        note:
+          type: string
+    PolicyDecisionRequest:
+      type: object
+      required: [actor, subject, resource, action_intent]
+      properties:
+        actor:
+          type: object
+        subject:
+          type: object
+        instance:
+          type: object
+        grant_id:
+          type: string
+        resource:
+          type: string
+        action_intent:
+          type: object
+        context:
+          type: object
+    PolicyDecision:
+      type: object
+      required: [decision, reason_codes, policy_version]
+      properties:
+        decision:
+          enum: [allow, deny, step_up]
+        reason_codes:
+          type: array
+          items:
+            type: string
+        obligations:
+          type: array
+          items:
+            type: object
+        policy_version:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.example.com/oauth/authorize
+          tokenUrl: https://auth.example.com/oauth/token
+          scopes:
+            agentauth.manage: Manage AgentAuth objects
+            agentauth.policy.evaluate: Evaluate policy
+    dpop:
+      type: http
+      scheme: bearer
+      bearerFormat: DPoP-bound OAuth access token
