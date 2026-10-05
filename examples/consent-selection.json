@@ -1,0 +1,16 @@
+{
+  "proposal_id": "prop_123",
+  "decision": "approved",
+  "selected_capabilities": [
+    {
+      "capability_id": "cap_read",
+      "type": "agent_action",
+      "action": "calendar.event.read",
+      "resources": [
+        "urn:calendar:primary"
+      ]
+    }
+  ],
+  "selected_expires_at": "2026-10-05T18:00:00Z",
+  "selected_max_delegation_depth": 0
+}

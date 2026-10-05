@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/authorization-proposal.schema.json",
+  "title": "AgentAuth Authorization Proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposal_id",
+    "provider_resource",
+    "subject",
+    "actor",
+    "required_capabilities",
+    "optional_capabilities",
+    "requested_expires_at"
+  ],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "provider_resource": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "issuer", "id"],
+      "properties": {
+        "type": {
+          "enum": ["human", "organization", "workload", "ai_agent"]
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "id"],
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "required_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://agentauth.dev/schemas/capability.schema.json"
+      }
+    },
+    "optional_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://agentauth.dev/schemas/capability.schema.json"
+      }
+    },
+    "purpose": {
+      "type": ["string", "null"],
+      "maxLength": 500
+    },
+    "requested_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "requested_max_delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16
+    }
+  },
+  "anyOf": [
+    {
+      "properties": {
+        "required_capabilities": { "minItems": 1 }
+      }
+    },
+    {
+      "properties": {
+        "optional_capabilities": { "minItems": 1 }
+      }
+    }
+  ]
+}

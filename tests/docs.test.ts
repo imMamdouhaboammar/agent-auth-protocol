@@ -34,7 +34,15 @@ describe("AgentAuth Specification Documents", () => {
     "docs/28-state-machines.md",
     "docs/29-error-registry.md",
     "docs/30-versioning-idempotency-replay.md",
-    "docs/31-conformance-matrix.md"
+    "docs/31-conformance-matrix.md",
+    "docs/32-effective-authorization-model.md",
+    "docs/33-capability-grammar.md",
+    "docs/34-constraint-algebra.md",
+    "docs/35-delegation-attenuation.md",
+    "docs/36-action-intent-and-approval.md",
+    "docs/37-progressive-consent.md",
+    "docs/38-provider-policy-and-relationships.md",
+    "docs/39-authorization-evaluation-algorithm.md"
   ];
 
   const adrs = [
@@ -45,7 +53,11 @@ describe("AgentAuth Specification Documents", () => {
     "docs/adr/0005-three-party-protocol-and-sdk-boundaries.md",
     "docs/adr/0006-direct-vs-brokered-provider-trust.md",
     "docs/adr/0007-issuer-qualified-agent-identity.md",
-    "docs/adr/0008-separate-management-api-from-wire-protocol.md"
+    "docs/adr/0008-separate-management-api-from-wire-protocol.md",
+    "docs/adr/0009-effective-authority-is-intersection.md",
+    "docs/adr/0010-portable-constraints-require-subsumption.md",
+    "docs/adr/0011-relationship-policy-remains-provider-local.md",
+    "docs/adr/0012-core-child-delegation-is-authority-mediated.md"
   ];
 
   const securityAndDeploy = [
@@ -54,7 +66,8 @@ describe("AgentAuth Specification Documents", () => {
     "deploy/reference-topology.md",
     "goals/ZZZOPS_GOAL_DAG.md",
     "implementation/PLAN.md",
-    "implementation/PROTOCOL_V0_2_PLAN.md"
+    "implementation/PROTOCOL_V0_2_PLAN.md",
+    "docs/research/pr3-authorization-inspiration.md"
   ];
 
   it("ensures all numbered specification documents exist and are substantial", () => {
@@ -71,7 +84,7 @@ describe("AgentAuth Specification Documents", () => {
     }
   });
 
-  it("ensures security, deploy, and implementation specs exist", () => {
+  it("ensures security, deploy, implementation, and research specs exist", () => {
     for (const file of securityAndDeploy) {
       expect(existsSync(file)).toBe(true);
       expect(statSync(file).size).toBeGreaterThan(200);

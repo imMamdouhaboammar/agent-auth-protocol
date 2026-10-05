@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/consent-selection.schema.json",
+  "title": "AgentAuth Consent Selection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "proposal_id",
+    "decision",
+    "selected_capabilities",
+    "selected_expires_at"
+  ],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "decision": {
+      "enum": ["approved", "denied"]
+    },
+    "selected_capabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://agentauth.dev/schemas/capability.schema.json"
+      }
+    },
+    "selected_expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "selected_max_delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": { "const": "denied" }
+        },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "selected_capabilities": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": { "const": "approved" }
+        },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "selected_capabilities": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -189,3 +189,27 @@ The AgentAuth core defines:
 - fail-closed semantics
 
 The first implementation may use a policy engine such as Cedar or OPA, but business policy language is an adapter choice rather than part of the AgentAuth protocol.
+
+
+## v0.2 normative authorization references
+
+The formal v0.2 model is split across:
+
+- `docs/32-effective-authorization-model.md`
+- `docs/33-capability-grammar.md`
+- `docs/34-constraint-algebra.md`
+- `docs/35-delegation-attenuation.md`
+- `docs/36-action-intent-and-approval.md`
+- `docs/37-progressive-consent.md`
+- `docs/38-provider-policy-and-relationships.md`
+- `docs/39-authorization-evaluation-algorithm.md`
+
+The core rule is:
+
+```text
+Effective Authority =
+intersection of all positive authority boundaries
+minus Provider-local deny policy
+```
+
+Provider relationship policy remains local. Portable delegation uses deterministic Capability and Constraint semantics.

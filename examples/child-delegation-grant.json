@@ -1,0 +1,38 @@
+{
+  "grant_id": "grant_child",
+  "issuer": "https://auth.example.com",
+  "subject": {
+    "type": "human",
+    "issuer": "https://id.example.com",
+    "id": "user_123"
+  },
+  "actor_agent_issuer": "https://agents.example.com",
+  "actor_agent_id": "worker",
+  "parent_grant_id": "grant_parent",
+  "purpose": "pay one approved USD invoice",
+  "capabilities": [
+    {
+      "capability_id": "cap_payment_child",
+      "type": "agent_action",
+      "action": "payment.create",
+      "resources": [
+        "urn:account:123"
+      ],
+      "arguments": {
+        "amount": {
+          "constraint_type": "range",
+          "min": 0,
+          "max": 200
+        },
+        "currency": {
+          "constraint_type": "exact",
+          "value": "USD"
+        }
+      }
+    }
+  ],
+  "not_before": "2026-10-05T12:05:00Z",
+  "expires_at": "2026-10-05T18:00:00Z",
+  "max_delegation_depth": 1,
+  "status": "active"
+}
