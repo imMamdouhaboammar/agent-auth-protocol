@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/approval-evidence.schema.json",
+  "title": "AgentAuth Approval Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approval_id",
+    "action_digest",
+    "decision",
+    "approver",
+    "approved_at",
+    "expires_at",
+    "single_use",
+    "policy_version"
+  ],
+  "properties": {
+    "approval_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "action_digest": {
+      "type": "string",
+      "pattern": "^sha-256:[A-Za-z0-9_-]{43}$"
+    },
+    "decision": {
+      "enum": ["approved", "denied"]
+    },
+    "approver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "issuer", "id"],
+      "properties": {
+        "type": {
+          "enum": ["human", "organization", "workload"]
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "single_use": {
+      "type": "boolean"
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "reason": {
+      "type": ["string", "null"],
+      "maxLength": 500
+    }
+  }
+}
