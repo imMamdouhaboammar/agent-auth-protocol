@@ -304,6 +304,20 @@ describe("AgentAuth v0.2 authorization and delegation model", () => {
     expect(capabilityCovered(parent, child)).toBe(false);
   });
 
+  it("rejects denied consent that still selects authority", () => {
+    const validate = ajv.compile(consentSchema);
+    const invalid = structuredClone(consent);
+    invalid.decision = "denied";
+    expect(validate(invalid)).toBe(false);
+  });
+
+  it("rejects denied evidence as Approval Evidence", () => {
+    const validate = ajv.compile(approvalSchema);
+    const invalid = structuredClone(approval);
+    invalid.decision = "denied";
+    expect(validate(invalid)).toBe(false);
+  });
+
   it("allows progressive consent to omit optional authority", () => {
     expect(selectionWithinProposal(proposal, consent)).toBe(true);
     expect(consent.selected_capabilities).toHaveLength(1);
