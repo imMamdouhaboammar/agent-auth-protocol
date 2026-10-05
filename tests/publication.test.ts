@@ -117,6 +117,15 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     expect(attribution).toContain("independent implementation");
   });
 
+  it("ships a Pages workflow that does not try to force-enable repository Pages", () => {
+    const workflow = readFileSync(".github/workflows/pages.yml", "utf8");
+
+    expect(workflow).toContain("actions/jekyll-build-pages@v1");
+    expect(workflow).toContain("actions/deploy-pages@v4");
+    expect(workflow).toContain("GitHub Pages is not enabled");
+    expect(workflow).not.toContain("enablement: true");
+  });
+
   it("aligns package discovery metadata with the actual protocol scope", () => {
     const pkg = JSON.parse(readFileSync("package.json", "utf8"));
 
