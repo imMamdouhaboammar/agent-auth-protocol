@@ -1,0 +1,26 @@
+{
+  "resource": "https://crm.example.com",
+  "authorization_servers": [
+    "https://auth.example.com"
+  ],
+  "urn:agentauth:resource-metadata:v1": {
+    "version": "0.2",
+    "actor_types_supported": [
+      "ai_agent"
+    ],
+    "profiles_supported": [
+      "AA-PROVIDER-API-1",
+      "AA-PROVIDER-WEB-1",
+      "AA-DELEGATION-1"
+    ],
+    "proof_methods_supported": [
+      "dpop"
+    ],
+    "authorization_details_types_supported": [
+      "agent_action"
+    ],
+    "agent_signup_endpoint": "https://crm.example.com/agentauth/signup",
+    "agent_session_endpoint": "https://crm.example.com/agentauth/session",
+    "agent_account_management_endpoint": "https://crm.example.com/settings/agents"
+  }
+}
