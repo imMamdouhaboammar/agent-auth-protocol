@@ -40,6 +40,10 @@ describe("AgentAuth publication, citation, and discoverability", () => {
 
     expect(existsSync("assets/agentauth-hero.svg")).toBe(true);
     expect(statSync("assets/agentauth-hero.svg").size).toBeGreaterThan(3000);
+
+    const hero = readFileSync("assets/agentauth-hero.svg", "utf8");
+    expect(hero).toContain("<title");
+    expect(hero).toContain("<desc");
     expect(readme).toContain('src="./assets/agentauth-hero.svg"');
     expect(readme).toContain('<h1 align="center">AgentAuth</h1>');
     expect(readme).toContain("AI can act for you without becoming you.");
