@@ -1,0 +1,33 @@
+{
+  "protocol_version": "0.2",
+  "actor": {
+    "type": "ai_agent",
+    "issuer": "https://agents.example.com",
+    "id": "agent_123"
+  },
+  "instance": {
+    "issuer": "https://agents.example.com",
+    "id": "inst_456"
+  },
+  "subject": {
+    "type": "human",
+    "issuer": "https://auth.provider.example",
+    "id": "user_789"
+  },
+  "authority": {
+    "mode": "delegated",
+    "grant_id": "grant_abc"
+  },
+  "token": {
+    "issuer": "https://auth.provider.example",
+    "audience": "https://api.provider.example",
+    "token_id": "tok_01",
+    "expires_at": "2026-10-05T12:30:00Z"
+  },
+  "proof": {
+    "method": "dpop",
+    "key_thumbprint": "example-thumbprint"
+  },
+  "provider_account_id": "acct_agent_17",
+  "purpose": "crm-follow-up"
+}
