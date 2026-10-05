@@ -39,7 +39,7 @@ jobs:
             echo "enabled=true" >> "${GITHUB_OUTPUT}"
           else
             echo "enabled=false" >> "${GITHUB_OUTPUT}"
-            echo "::notice::GitHub Pages is not enabled for this repository. Enable Pages with GitHub Actions as the source, then rerun this workflow."
+            echo "::notice::GitHub Pages is not enabled for this repository. Enable Pages in Settings > Pages with GitHub Actions as the source, then rerun this workflow."
           fi
 
       - name: Checkout
