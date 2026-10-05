@@ -1,6 +1,6 @@
 {
-  "iss": "https://auth.example.com",
-  "sub": "urn:subject:user:123",
+  "iss": "https://auth.provider.example",
+  "sub": "user_123",
   "aud": "https://crm.example.com",
   "client_id": "runtime-client-123",
   "scope": "contacts.read contacts.update",
@@ -8,13 +8,15 @@
   "exp": 1791194700,
   "jti": "tok_01J...",
   "act": {
-    "sub": "urn:agentauth:agent:agent_01J..."
+    "sub": "agent-local-17"
   },
   "cnf": {
     "jkt": "example-thumbprint"
   },
   "urn:agentauth:claims:v1": {
+    "protocol_version": "0.2",
     "actor_type": "ai_agent",
+    "agent_issuer": "https://agents.example.com",
     "agent_id": "agent_01J...",
     "instance_id": "inst_01J...",
     "grant_id": "grant_01J...",
