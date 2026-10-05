@@ -94,16 +94,60 @@ Use:
 Reference:
 https://openid.net/specs/openid-connect-core-1_0.html
 
+### RATS Architecture, RFC 9334
+
+Use:
+
+- Attester, Verifier, and Relying Party separation
+- Evidence, Endorsement, Reference Value, and Attestation Result terminology
+- platform-neutral remote-attestation architecture
+
+Reference:
+https://www.rfc-editor.org/rfc/rfc9334.html
+
+### Entity Attestation Token, RFC 9711
+
+Use:
+
+- standards-based attestation claims container
+- JWT or CWT attestation evidence/results where a profile selects EAT
+
+Reference:
+https://www.rfc-editor.org/rfc/rfc9711.html
+
+### EAT Media Types, RFC 9782
+
+Use:
+
+- standard media types for EAT transport
+
+Reference:
+https://www.rfc-editor.org/rfc/rfc9782.html
+
+### EAT Measured Component, RFC 10013
+
+Use:
+
+- measured software/component information models for attestation profiles
+
+Reference:
+https://www.rfc-editor.org/rfc/rfc10013.html
+
 ### SPIFFE
 
 Use:
 
 - workload identity
-- Trust Domain concepts
+- Trust Domain and bundle concepts
+- explicit workload federation
 - portable runtime identity integration
+- Workload API identity retrieval
 
-Reference:
+References:
 https://spiffe.io/docs/latest/spiffe-specs/
+https://spiffe.io/docs/latest/spiffe-specs/spiffe_trust_domain_and_bundle/
+https://spiffe.io/docs/latest/spiffe-specs/spiffe_federation/
+https://spiffe.io/docs/latest/spiffe-specs/spiffe_workload_api/
 
 ## MCP
 
@@ -126,6 +170,17 @@ https://www.nccoe.nist.gov/sites/default/files/2026-02/accelerating-the-adoption
 ## Emerging IETF work
 
 These drafts show active standards exploration but are not stable dependencies.
+
+### OAuth Attestation-Based Client Authentication
+
+Defines an OAuth extension for a client instance to present key-bound attestation to an Authorization Server or Resource Server.
+
+AgentAuth tracks this as a potential future client-instance interoperability point. v0.2 does not depend on its draft-specific fields.
+
+Reference:
+https://datatracker.ietf.org/doc/draft-ietf-oauth-attestation-based-client-auth/
+
+
 
 ### OpenID Connect Agent Identity Claims
 
