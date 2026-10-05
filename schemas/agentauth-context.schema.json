@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/agentauth-context.schema.json",
+  "title": "AgentAuth Canonical Provider Context",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "actor",
+    "instance",
+    "subject",
+    "authority",
+    "token",
+    "proof"
+  ],
+  "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "issuer", "id"],
+      "properties": {
+        "type": {
+          "const": "ai_agent"
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "instance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "id"],
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "issuer", "id"],
+      "properties": {
+        "type": {
+          "enum": ["human", "organization", "workload", "ai_agent"]
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": {
+          "enum": ["direct", "delegated"]
+        },
+        "grant_id": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "delegated"
+              }
+            },
+            "required": ["mode"]
+          },
+          "then": {
+            "required": ["grant_id"],
+            "properties": {
+              "grant_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "direct"
+              }
+            },
+            "required": ["mode"]
+          },
+          "then": {
+            "properties": {
+              "grant_id": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "audience", "expires_at"],
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 1
+        },
+        "token_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "proof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "enum": ["dpop", "mtls"]
+        },
+        "key_thumbprint": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "provider_account_id": {
+      "type": ["string", "null"],
+      "maxLength": 256
+    },
+    "purpose": {
+      "type": ["string", "null"],
+      "maxLength": 500
+    }
+  }
+}
