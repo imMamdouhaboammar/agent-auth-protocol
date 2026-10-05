@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/capability.schema.json",
+  "title": "AgentAuth Capability",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["type", "action", "resources"],
+  "properties": {
+    "capability_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "type": {
+      "const": "agent_action"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      }
+    },
+    "arguments": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 64,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      },
+      "additionalProperties": {
+        "$ref": "https://agentauth.dev/schemas/constraint.schema.json"
+      }
+    }
+  }
+}
