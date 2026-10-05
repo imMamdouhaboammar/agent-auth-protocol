@@ -5,6 +5,9 @@
   ],
   "urn:agentauth:resource-metadata:v1": {
     "version": "0.2",
+    "protocol_versions_supported": [
+      "0.2"
+    ],
     "actor_types_supported": [
       "ai_agent"
     ],
