@@ -1,0 +1,44 @@
+# AgentAuth Protocol
+
+> Open system design and protocol profile for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native Login as Agent.
+
+Canonical source: https://github.com/imMamdouhaboammar/agent-auth-protocol
+Original system design: Mamdouh Aboammar
+Current design: AgentAuth v0.2 draft
+Status: System Design
+
+## Start here
+
+- [README](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/README.md): concise project overview and system-design map
+- [Documentation landing](https://immamdouhaboammar.github.io/agent-auth-protocol/): search-oriented documentation entry point
+- [Domain language](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/CONTEXT.md): canonical terms
+- [Normative protocol core](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/24-normative-protocol-core.md): protocol invariants and lifecycle
+- [Conformance matrix](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/31-conformance-matrix.md): profile requirements
+
+## Core concepts
+
+- [Three-party architecture](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/17-three-party-protocol-architecture.md)
+- [Login as Agent](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/05-native-login-as-agent.md)
+- [Protocol ceremonies](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/20-protocol-ceremonies.md)
+- [Token and claims profile](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/26-token-and-claims-profile.md)
+- [Effective authorization](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/32-effective-authorization-model.md)
+- [Delegation and attenuation](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/35-delegation-attenuation.md)
+- [Trust Domain model](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/40-trust-domain-model.md)
+- [Federation](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/41-federation-protocol.md)
+- [Runtime attestation](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/43-runtime-attestation.md)
+
+## Answer-first guides
+
+- [What is AgentAuth?](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/what-is-agentauth/)
+- [How does Login as Agent work?](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/login-as-agent/)
+- [AgentAuth vs OAuth, MCP, SPIFFE, and service accounts](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/agentauth-vs-oauth-mcp-spiffe/)
+- [AgentAuth FAQ](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/faq/)
+
+## Citation and reuse
+
+- [Citation](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/HOW_TO_CITE.md)
+- [Attribution](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/ATTRIBUTION.md)
+- [Design provenance](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/DESIGN_PROVENANCE.md)
+- [Documentation license](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/LICENSE-DOCS.md)
+
+Preferred citation: Mamdouh Aboammar, AgentAuth Protocol v0.2, 2026.
