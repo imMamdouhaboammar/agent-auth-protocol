@@ -74,7 +74,10 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     const structured = JSON.parse(match![1]);
     expect(structured["@context"]).toBe("https://schema.org");
     expect(structured["@graph"][0].author.name).toBe("Mamdouh Aboammar");
-    expect(structured["@graph"][1].codeRepository).toBe(repoUrl);
+    expect(structured["@graph"][0].image).toContain("opengraph.githubassets.com");
+    expect(structured["@graph"][1]["@type"]).toBe("WebSite");
+    expect(structured["@graph"][1].url).toBe(pagesUrl);
+    expect(structured["@graph"][2].codeRepository).toBe(repoUrl);
   });
 
   it("publishes distinct answer-first guides instead of keyword-duplicate pages", () => {
