@@ -144,9 +144,11 @@ A successful result contains at minimum:
 
 ```json
 {
-  "agent_id": "urn:agentauth:agent:123",
+  "protocol_version": "0.2",
+  "agent_issuer": "https://agents.example.com",
+  "agent_id": "agent_123",
   "instance_id": "inst_456",
-  "issuer": "https://authority.example",
+  "credential_issuer": "https://authority.example",
   "proof_method": "dpop",
   "authenticated_at": "2026-10-05T12:00:00Z"
 }
@@ -266,20 +268,19 @@ SDK errors SHOULD include:
 }
 ```
 
-Core error classes:
+Core errors use the normative registry in `docs/29-error-registry.md`, including:
 
 - `agentauth_not_supported`
-- `authority_not_trusted`
-- `agent_identity_invalid`
-- `instance_proof_failed`
-- `grant_required`
-- `grant_denied`
-- `insufficient_authority`
-- `step_up_required`
-- `proof_replay_detected`
-- `provider_policy_denied`
-- `session_bootstrap_failed`
-- `legacy_mode_forbidden`
+- `agentauth_authority_not_trusted`
+- `agentauth_agent_invalid`
+- `agentauth_instance_invalid`
+- `agentauth_grant_required`
+- `agentauth_grant_denied`
+- `agentauth_insufficient_authority`
+- `agentauth_step_up_required`
+- `agentauth_proof_replayed`
+- `agentauth_policy_denied`
+- `agentauth_bootstrap_invalid`
 
 Errors MUST NOT include secrets.
 
