@@ -94,6 +94,10 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     }
 
     expect(new Set(contents).size).toBe(guides.length);
+
+    for (const content of contents) {
+      expect(content).not.toMatch(/\]\((?:\.\.\/|login-as-agent\/|faq\/|agentauth-vs-oauth-mcp-spiffe\/)/);
+    }
   });
 
   it("publishes a sitemap for the primary documentation entry points", () => {
