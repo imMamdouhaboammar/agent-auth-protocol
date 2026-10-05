@@ -150,3 +150,56 @@ The pair of an Agent identity issuer and the issuer-local Agent identifier. Bare
 ## Idempotency Key
 
 An opaque retry key associated with one authenticated caller, operation, and request digest so a side-effecting protocol operation can be safely retried without creating duplicate effects.
+
+
+## Capability Set
+
+A set of positive authorization capabilities. Each Capability names one Action, one or more Resources, and optional deterministic argument Constraints. Capability Sets express allowed authority only; Provider deny policy is applied separately.
+
+## Authorization Proposal
+
+A structured request for authority that an Agent Client presents for approval or policy evaluation. It contains required and optional requested Capabilities and never includes the user's raw natural-language prompt.
+
+## Effective Authority
+
+The final authority available for one operation after intersecting all applicable positive authority sources and subtracting Provider denials. In delegated mode this includes Subject authority, Delegation Grant authority, Agent-local authority, Provider policy, and runtime restrictions.
+
+## Constraint Predicate
+
+A deterministic predicate over one action argument. A presented argument satisfies a Constraint Predicate only when the predicate evaluates to true.
+
+## Constraint Subsumption
+
+A decidable, sound, and deterministic comparison that proves a child Constraint accepts no values outside the parent Constraint. Constraint Subsumption is the basis for verifiable attenuation.
+
+## Constraint Registry
+
+The set of portable Constraint types whose runtime check semantics and Subsumption rules are defined precisely enough for independent implementations to agree.
+
+## Relationship Context
+
+Provider-side authorization facts derived from relationships among Subjects, organizations, teams, projects, Resources, or other local entities. Relationship Context may be produced by ReBAC, RBAC, ABAC, ACLs, or another local policy model and is not itself a portable AgentAuth wire format.
+
+## Consent Selection
+
+The subset and optional narrowing of an Authorization Proposal that an authorized approver accepts. A Consent Selection can remove optional authority or tighten authority, but cannot add authority not present in the proposal.
+
+## Approval Evidence
+
+A signed, stored, or otherwise verifiable record showing that an authorized approver accepted a Consent Selection or approved a specific Action Digest under stated conditions.
+
+## Authorization Decision
+
+The Provider or Authority result for one normalized Action Intent. The result is allow, deny, or step_up, with reason codes, matched authority, and required obligations.
+
+## Resource Selector
+
+A portable description of Resources covered by a Capability. AgentAuth v0.2 core uses exact Resource identifiers. Pattern and relationship selectors require explicitly defined extension semantics.
+
+## Argument Constraint Map
+
+A map from Action argument names to deterministic Constraint Predicates. When present in the core profile, it uses closed-world semantics: unlisted arguments are forbidden and every listed argument is required.
+
+## Direct Entitlement
+
+Positive authority assigned directly to an Agent Principal by an Authority or Provider, independent of a represented human Subject.
