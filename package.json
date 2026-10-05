@@ -1,7 +1,7 @@
 {
   "name": "@agentauth/protocol",
-  "version": "0.1.0",
-  "description": "Open protocol and platform specification for AI agent identity, cryptographic delegation, scoped authorization, and verifiable audit",
+  "version": "0.2.0-draft.1",
+  "description": "Open AgentAuth protocol specification for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native Login as Agent",
   "type": "module",
   "license": "Apache-2.0",
   "repository": {
@@ -11,19 +11,29 @@
   "bugs": {
     "url": "https://github.com/imMamdouhaboammar/agent-auth-protocol/issues"
   },
-  "homepage": "https://github.com/imMamdouhaboammar/agent-auth-protocol#readme",
+  "homepage": "https://github.com/imMamdouhaboammar/agent-auth-protocol",
   "keywords": [
-    "agent-auth",
-    "ai-agents",
+    "ai-agent-authentication",
+    "ai-agent-identity",
+    "agent-authentication",
+    "agent-authorization",
+    "agent-delegation",
+    "agentic-ai",
+    "login-as-agent",
+    "non-human-identity",
+    "machine-identity",
     "oauth2",
+    "openid-connect",
+    "dpop",
     "spiffe",
+    "mcp",
     "authorization",
     "delegation",
-    "mcp",
-    "identity",
-    "specification",
-    "rfc",
-    "security"
+    "federation",
+    "attestation",
+    "identity-security",
+    "zero-trust",
+    "specification"
   ],
   "scripts": {
     "test": "bun test",
