@@ -5,28 +5,42 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "protocol_version",
     "actor_type",
+    "agent_issuer",
     "agent_id",
     "instance_id",
     "authority_mode"
   ],
   "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
     "actor_type": {
       "const": "ai_agent"
     },
+    "agent_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
     "agent_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 256
     },
     "instance_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 256
     },
     "grant_id": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "minLength": 1,
+      "maxLength": 256
     },
     "purpose": {
       "type": [
@@ -50,7 +64,53 @@
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "maxLength": 100
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "authority_mode": {
+            "const": "delegated"
+          }
+        },
+        "required": [
+          "authority_mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "grant_id"
+        ],
+        "properties": {
+          "grant_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "authority_mode": {
+            "const": "direct"
+          }
+        },
+        "required": [
+          "authority_mode"
+        ]
+      },
+      "then": {
+        "properties": {
+          "grant_id": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
 }

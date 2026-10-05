@@ -40,6 +40,7 @@ Example:
   "resource_signing_alg_values_supported": ["ES256"],
   "urn:agentauth:resource-metadata:v1": {
     "version": "0.2",
+    "protocol_versions_supported": ["0.2"],
     "actor_types_supported": ["ai_agent"],
     "profiles_supported": [
       "AA-PROVIDER-API-1",
@@ -77,6 +78,7 @@ Example conceptual extension:
   "dpop_signing_alg_values_supported": ["ES256"],
   "urn:agentauth:authority-metadata:v1": {
     "version": "0.2",
+    "protocol_versions_supported": ["0.2"],
     "profiles_supported": [
       "AA-AUTHORITY-1",
       "AA-DELEGATION-1"
@@ -150,8 +152,9 @@ Example conceptual registration:
   ],
   "jwks_uri": "https://runtime.example/jwks.json",
   "urn:agentauth:client-metadata:v1": {
-    "agent_id": "urn:agentauth:agent:researcher",
+    "agent_id": "agent_researcher",
     "agent_metadata_uri": "https://publisher.example/agents/researcher.json",
+    "protocol_versions_supported": ["0.2"],
     "profiles_supported": ["AA-CLIENT-1"],
     "proof_methods_supported": ["dpop"]
   }
@@ -231,7 +234,9 @@ Public registries may exist as optional ecosystems, not as protocol roots.
 
 ## Version negotiation
 
-Every AgentAuth metadata extension carries a version.
+Every AgentAuth metadata extension carries its schema version and SHOULD advertise `protocol_versions_supported`.
+
+The selected AgentAuth protocol version is the highest mutually supported version permitted by local minimum-version policy.
 
 A client encountering a newer unknown version:
 

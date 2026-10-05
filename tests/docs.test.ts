@@ -19,14 +19,33 @@ describe("AgentAuth Specification Documents", () => {
     "docs/13-test-conformance.md",
     "docs/14-roadmap.md",
     "docs/15-operations-runbook.md",
-    "docs/16-standards-mapping.md"
+    "docs/16-standards-mapping.md",
+    "docs/17-three-party-protocol-architecture.md",
+    "docs/18-agent-sdk-contract.md",
+    "docs/19-provider-sdk-contract.md",
+    "docs/20-protocol-ceremonies.md",
+    "docs/21-discovery-and-metadata.md",
+    "docs/22-standards-delta-v0.2.md",
+    "docs/23-provider-authority-trust-model.md",
+    "docs/24-normative-protocol-core.md",
+    "docs/25-http-wire-bindings.md",
+    "docs/26-token-and-claims-profile.md",
+    "docs/27-identifiers-and-namespaces.md",
+    "docs/28-state-machines.md",
+    "docs/29-error-registry.md",
+    "docs/30-versioning-idempotency-replay.md",
+    "docs/31-conformance-matrix.md"
   ];
 
   const adrs = [
     "docs/adr/0001-oauth-core.md",
     "docs/adr/0002-agent-principal-separation.md",
     "docs/adr/0003-browser-bridge-non-authoritative.md",
-    "docs/adr/0004-federated-regional-cells.md"
+    "docs/adr/0004-federated-regional-cells.md",
+    "docs/adr/0005-three-party-protocol-and-sdk-boundaries.md",
+    "docs/adr/0006-direct-vs-brokered-provider-trust.md",
+    "docs/adr/0007-issuer-qualified-agent-identity.md",
+    "docs/adr/0008-separate-management-api-from-wire-protocol.md"
   ];
 
   const securityAndDeploy = [
@@ -34,30 +53,28 @@ describe("AgentAuth Specification Documents", () => {
     "security/privacy.md",
     "deploy/reference-topology.md",
     "goals/ZZZOPS_GOAL_DAG.md",
-    "implementation/PLAN.md"
+    "implementation/PLAN.md",
+    "implementation/PROTOCOL_V0_2_PLAN.md"
   ];
 
-  it("ensures all 17 numbered spec documents exist and are substantial", () => {
+  it("ensures all numbered specification documents exist and are substantial", () => {
     for (const doc of numberedDocs) {
       expect(existsSync(doc)).toBe(true);
-      const stat = statSync(doc);
-      expect(stat.size).toBeGreaterThan(500);
+      expect(statSync(doc).size).toBeGreaterThan(500);
     }
   });
 
-  it("ensures all 4 Architectural Decision Records exist", () => {
+  it("ensures all Architectural Decision Records exist", () => {
     for (const adr of adrs) {
       expect(existsSync(adr)).toBe(true);
-      const stat = statSync(adr);
-      expect(stat.size).toBeGreaterThan(300);
+      expect(statSync(adr).size).toBeGreaterThan(300);
     }
   });
 
   it("ensures security, deploy, and implementation specs exist", () => {
     for (const file of securityAndDeploy) {
       expect(existsSync(file)).toBe(true);
-      const stat = statSync(file);
-      expect(stat.size).toBeGreaterThan(200);
+      expect(statSync(file).size).toBeGreaterThan(200);
     }
   });
 });

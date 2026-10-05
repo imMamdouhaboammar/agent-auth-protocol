@@ -1,6 +1,9 @@
 {
+  "protocol_version": "0.2",
   "error": "agentauth_step_up_required",
   "error_description": "A human approval bound to the action digest is required.",
+  "recoverable": true,
+  "interaction_required": true,
   "agentauth": {
     "required_profile": "AA-DELEGATION-1",
     "required_action": "human_approval",

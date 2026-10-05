@@ -110,9 +110,11 @@ When an agent acts under its own organizational entitlement:
 
 ## Token exchange profile
 
-AgentAuth uses OAuth Token Exchange semantics for delegated authority.
+AgentAuth uses OAuth Token Exchange when an existing credential must be transformed across audience or trust boundaries.
 
-Conceptual request:
+Token Exchange is not mandatory for every delegated request. An Authority that already holds an approved Delegation Grant may issue a resource credential without exposing a reusable Subject credential to the Agent Client.
+
+Conceptual exchange request:
 
 ```text
 grant_type=urn:ietf:params:oauth:grant-type:token-exchange
@@ -183,9 +185,11 @@ DPoP proof validation includes:
 
 AgentAuth publishes standard OAuth and OIDC metadata where applicable.
 
-Additionally, an AgentAuth-aware deployment MAY expose:
+Additionally, an AgentAuth-aware deployment MAY expose an aggregation endpoint:
 
 `/.well-known/agentauth-configuration`
+
+AgentAuth v0.2 clients SHOULD prefer OAuth Protected Resource Metadata for Provider discovery and OAuth Authorization Server Metadata for Authority discovery.
 
 Example:
 
@@ -207,7 +211,7 @@ Example:
 }
 ```
 
-The AgentAuth well-known document is a product extension and MUST NOT be described as an existing Internet standard.
+The AgentAuth well-known document is a product extension and MUST NOT be described as an existing Internet standard. The normative v0.2 discovery rules are defined in `docs/21-discovery-and-metadata.md` and `docs/25-http-wire-bindings.md`.
 
 ## Token validation order
 
