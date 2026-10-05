@@ -114,7 +114,7 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     expect(software).toContain("Apache License");
     expect(docs).toContain("Creative Commons Attribution 4.0 International");
     expect(attribution).toContain(repoUrl);
-    expect(attribution).toContain("independent implementation");
+    expect(attribution).toMatch(/independent\s+implementation/i);
   });
 
   it("ships a Pages workflow that does not try to force-enable repository Pages", () => {
