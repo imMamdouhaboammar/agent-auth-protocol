@@ -35,6 +35,36 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     expect(readme).not.toContain("Status:** Draft system design v0.1");
   });
 
+  it("publishes the branded README hero, centered title, and canonical slogan", () => {
+    const readme = readFileSync("README.md", "utf8");
+
+    expect(existsSync("assets/agentauth-hero.svg")).toBe(true);
+    expect(statSync("assets/agentauth-hero.svg").size).toBeGreaterThan(3000);
+
+    const hero = readFileSync("assets/agentauth-hero.svg", "utf8");
+    expect(hero).toContain("<title");
+    expect(hero).toContain("<desc");
+    expect(readme).toContain('src="./assets/agentauth-hero.svg"');
+    expect(readme).toContain('<h1 align="center">AgentAuth</h1>');
+    expect(readme).toContain("AI can act for you without becoming you.");
+    expect(readme).toContain("First-class identity and delegated authority for AI agents");
+    expect(readme).not.toContain("# AgentAuth Protocol: Identity, Authentication, Authorization & Delegation for AI Agents");
+  });
+
+  it("publishes an advanced AGENTS contract for autonomous repository work", () => {
+    const agents = readFileSync("AGENTS.md", "utf8");
+
+    expect(statSync("AGENTS.md").size).toBeGreaterThan(8000);
+    expect(agents).toContain("Source-of-truth order");
+    expect(agents).toMatch(/OAuth client/i);
+    expect(agents).toContain("Agent Principal");
+    expect(agents).toContain("Effective authority narrows");
+    expect(agents).toContain("non-transitive by default");
+    expect(agents).toContain("Runtime Attestation is a trust input");
+    expect(agents).toContain("expected-head SHA guard");
+    expect(agents).toContain("bun run validate:checksums");
+  });
+
   it("exposes valid machine-readable citation metadata", () => {
     const citation = YAML.parse(readFileSync("CITATION.cff", "utf8"));
 
