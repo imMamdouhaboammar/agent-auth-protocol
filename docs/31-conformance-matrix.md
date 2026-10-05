@@ -147,3 +147,20 @@ An implementation is not AgentAuth-native merely because it:
 - has a service account
 
 Conformance requires the selected AgentAuth profile semantics.
+
+
+## 11. Authorization-model conformance additions
+
+AA-DELEGATION-1 and AA-PROVIDER-API-1 additionally require:
+
+- effective authority is computed by narrowing, never union
+- delegated authority cannot exceed Subject Authority
+- portable Capability Actions and core Resources use exact matching
+- unknown authority-bearing Constraint types fail closed
+- child Constraint Subsumption is deterministic and non-expanding
+- closed-world argument maps reject unlisted arguments
+- parent grant revocation invalidates descendants
+- progressive consent cannot add authority beyond the Authorization Proposal
+- Action Digest uses the defined canonicalization and hash profile
+- changed digest-bound parameters invalidate transaction approval
+- Provider relationship context is locally derived or independently trusted
