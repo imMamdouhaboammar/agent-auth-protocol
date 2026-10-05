@@ -1,0 +1,22 @@
+{
+  "error": "agentauth_step_up_required",
+  "error_description": "A human approval bound to the action digest is required.",
+  "agentauth": {
+    "required_profile": "AA-DELEGATION-1",
+    "required_action": "human_approval",
+    "authorization_details": {
+      "type": "agent_action",
+      "actions": [
+        "payment.create"
+      ],
+      "constraints": {
+        "max_amount": {
+          "currency": "USD",
+          "value": "500.00"
+        }
+      }
+    },
+    "approval_uri": "https://auth.example.com/approvals/apr_123",
+    "expires_in": 300
+  }
+}
