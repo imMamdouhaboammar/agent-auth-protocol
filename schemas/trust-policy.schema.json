@@ -80,5 +80,26 @@
     "unknown_mandatory_semantics": {
       "const": "reject"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "require_attestation": { "const": true }
+        },
+        "required": ["require_attestation"]
+      },
+      "then": {
+        "required": [
+          "accepted_attestation_verifiers",
+          "accepted_assurance_classes",
+          "max_attestation_age_seconds"
+        ],
+        "properties": {
+          "accepted_attestation_verifiers": { "minItems": 1 },
+          "accepted_assurance_classes": { "minItems": 1 }
+        }
+      }
+    }
+  ]
 }
