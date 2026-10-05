@@ -1,0 +1,11 @@
+{
+  "event_id": "keyevt_123",
+  "key_class": "instance_proof",
+  "key_id": "jkt:example-thumbprint",
+  "issuer_or_instance": "https://agents.example.com|inst_456",
+  "epoch": 2,
+  "event_type": "rotated",
+  "occurred_at": "2026-10-05T12:00:00Z",
+  "reason": "scheduled rotation",
+  "emergency": false
+}
