@@ -1,0 +1,14 @@
+{
+  "approval_id": "apr_123",
+  "action_digest": "sha-256:pZ67QEjxzFdQ-jN8bSl6r6Kf96RSUfF49wInOItKkrs",
+  "decision": "approved",
+  "approver": {
+    "type": "human",
+    "issuer": "https://id.example.com",
+    "id": "manager_7"
+  },
+  "approved_at": "2026-10-05T12:45:00Z",
+  "expires_at": "2026-10-05T12:50:00Z",
+  "single_use": true,
+  "policy_version": "payments-v17"
+}
