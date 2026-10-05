@@ -1,0 +1,33 @@
+{
+  "issuer": "https://auth.example.com",
+  "token_endpoint": "https://auth.example.com/oauth/token",
+  "jwks_uri": "https://auth.example.com/.well-known/jwks.json",
+  "grant_types_supported": [
+    "authorization_code",
+    "urn:ietf:params:oauth:grant-type:token-exchange"
+  ],
+  "dpop_signing_alg_values_supported": [
+    "ES256"
+  ],
+  "urn:agentauth:authority-metadata:v1": {
+    "version": "0.2",
+    "protocol_versions_supported": [
+      "0.2"
+    ],
+    "profiles_supported": [
+      "AA-AUTHORITY-1",
+      "AA-DELEGATION-1"
+    ],
+    "proof_methods_supported": [
+      "dpop",
+      "mtls"
+    ],
+    "actor_types_supported": [
+      "ai_agent"
+    ],
+    "agent_registration_endpoint": "https://auth.example.com/v1/agents",
+    "agent_instance_endpoint": "https://auth.example.com/v1/instances",
+    "grant_endpoint": "https://auth.example.com/v1/grants",
+    "brokered_exchange_supported": true
+  }
+}
