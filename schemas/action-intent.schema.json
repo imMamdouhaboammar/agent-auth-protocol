@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/action-intent.schema.json",
+  "title": "AgentAuth Action Intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "intent_version",
+    "provider",
+    "subject",
+    "actor",
+    "instance_id",
+    "action",
+    "resource",
+    "arguments",
+    "expires_at",
+    "nonce"
+  ],
+  "properties": {
+    "intent_version": {
+      "const": "0.2"
+    },
+    "provider": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "issuer", "id"],
+      "properties": {
+        "type": {
+          "enum": ["human", "organization", "workload", "ai_agent"]
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issuer", "id"],
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "instance_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "grant_id": {
+      "type": ["string", "null"],
+      "maxLength": 256
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "resource": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "arguments": {
+      "type": "object",
+      "maxProperties": 64,
+      "additionalProperties": true
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "nonce": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 512
+    }
+  }
+}
