@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/instance-enrollment.schema.json",
+  "title": "AgentAuth Instance Enrollment Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "challenge_id",
+    "agent_issuer",
+    "agent_id",
+    "proof_key",
+    "proof_algorithm",
+    "challenge_signature"
+  ],
+  "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
+    "challenge_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "agent_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "proof_key": {
+      "type": "object",
+      "minProperties": 2
+    },
+    "proof_algorithm": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "challenge_signature": {
+      "type": "string",
+      "minLength": 16
+    },
+    "attestation_result_ref": {
+      "type": ["string", "null"],
+      "maxLength": 512
+    },
+    "workload_identity": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    }
+  }
+}
