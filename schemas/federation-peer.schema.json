@@ -113,5 +113,21 @@
       "minimum": 30,
       "maximum": 86400
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "require_attestation": { "const": true }
+        },
+        "required": ["require_attestation"]
+      },
+      "then": {
+        "required": ["accepted_assurance_classes"],
+        "properties": {
+          "accepted_assurance_classes": { "minItems": 1 }
+        }
+      }
+    }
+  ]
 }
