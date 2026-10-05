@@ -5,8 +5,11 @@
     "urn:ietf:params:oauth:grant-type:token-exchange"
   ],
   "urn:agentauth:client-metadata:v1": {
-    "agent_id": "urn:agentauth:agent:researcher",
+    "agent_id": "agent_researcher",
     "agent_metadata_uri": "https://publisher.example/agents/researcher.json",
+    "protocol_versions_supported": [
+      "0.2"
+    ],
     "profiles_supported": [
       "AA-CLIENT-1"
     ],
