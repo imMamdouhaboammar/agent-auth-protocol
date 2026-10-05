@@ -43,7 +43,13 @@
         "agentauth_bootstrap_invalid",
         "agentauth_bootstrap_replayed",
         "agentauth_idempotency_conflict",
-        "agentauth_policy_denied"
+        "agentauth_policy_denied",
+        "agentauth_federation_not_trusted",
+        "agentauth_federation_disabled",
+        "agentauth_attestation_required",
+        "agentauth_attestation_rejected",
+        "agentauth_attestation_indeterminate",
+        "agentauth_key_epoch_invalid"
       ]
     },
     "error_description": {
