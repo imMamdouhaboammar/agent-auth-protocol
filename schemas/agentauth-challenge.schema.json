@@ -4,8 +4,17 @@
   "title": "AgentAuth Structured Challenge",
   "type": "object",
   "additionalProperties": false,
-  "required": ["error", "agentauth"],
+  "required": [
+    "protocol_version",
+    "error",
+    "recoverable",
+    "interaction_required",
+    "agentauth"
+  ],
   "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
     "error": {
       "type": "string",
       "enum": [
@@ -13,12 +22,19 @@
         "agentauth_step_up_required",
         "agentauth_insufficient_authority",
         "agentauth_proof_required",
-        "agentauth_profile_required"
+        "agentauth_profile_mismatch",
+        "agentauth_provider_account_required"
       ]
     },
     "error_description": {
       "type": "string",
       "maxLength": 512
+    },
+    "recoverable": {
+      "type": "boolean"
+    },
+    "interaction_required": {
+      "type": "boolean"
     },
     "agentauth": {
       "type": "object",
