@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use, implement, discuss, or adapt AgentAuth, please cite the canonical repository."
+title: "AgentAuth Protocol"
+type: software
+version: "0.2-draft"
+date-released: 2026-10-05
+authors:
+  - family-names: "Aboammar"
+    given-names: "Mamdouh"
+repository-code: "https://github.com/imMamdouhaboammar/agent-auth-protocol"
+url: "https://github.com/imMamdouhaboammar/agent-auth-protocol"
+license: Apache-2.0
+keywords:
+  - AI agent authentication
+  - AI agent identity
+  - agent authorization
+  - agent delegation
+  - Login as Agent
+  - non-human identity
+  - OAuth
+  - MCP
+  - SPIFFE
+  - federation
+  - runtime attestation
+preferred-citation:
+  type: report
+  title: "AgentAuth Protocol v0.2: System Design for AI Agent Identity, Authentication, Authorization, Delegation, Federation, and Attestation"
+  authors:
+    - family-names: "Aboammar"
+      given-names: "Mamdouh"
+  year: 2026
+  url: "https://github.com/imMamdouhaboammar/agent-auth-protocol"

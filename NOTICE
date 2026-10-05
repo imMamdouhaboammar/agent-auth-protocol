@@ -1,0 +1,22 @@
+AgentAuth Protocol
+Copyright 2026 Mamdouh Aboammar
+
+Canonical project source:
+https://github.com/imMamdouhaboammar/agent-auth-protocol
+
+AgentAuth is an open system design and protocol profile for AI agent identity,
+authentication, authorization, delegation, federation, attestation, and native
+Login as Agent.
+
+Unless a file states otherwise:
+
+- software, tests, schemas, and reference implementation material are licensed
+  under the Apache License, Version 2.0
+- original documentation prose and diagrams are licensed under Creative
+  Commons Attribution 4.0 International (CC BY 4.0)
+
+Attribution information for documentation reuse is provided in ATTRIBUTION.md.
+Citation information is provided in CITATION.cff and HOW_TO_CITE.md.
+
+This NOTICE file is informational. It does not replace or modify the applicable
+license terms.

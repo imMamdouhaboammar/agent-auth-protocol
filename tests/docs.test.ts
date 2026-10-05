@@ -80,7 +80,8 @@ describe("AgentAuth Specification Documents", () => {
     "implementation/PLAN.md",
     "implementation/PROTOCOL_V0_2_PLAN.md",
     "docs/research/pr3-authorization-inspiration.md",
-    "docs/research/pr4-trust-attestation-standards.md"
+    "docs/research/pr4-trust-attestation-standards.md",
+    "docs/research/pr5-discoverability-publication.md"
   ];
 
   it("ensures all numbered specification documents exist and are substantial", () => {

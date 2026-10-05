@@ -1,0 +1,10 @@
+title: "AgentAuth Protocol"
+description: "Open system design for AI agent identity, authentication, authorization, delegation, federation, attestation, and native Login as Agent."
+url: "https://immamdouhaboammar.github.io"
+baseurl: "/agent-auth-protocol"
+repository: "imMamdouhaboammar/agent-auth-protocol"
+theme: jekyll-theme-cayman
+markdown: kramdown
+kramdown:
+  input: GFM
+show_downloads: false
