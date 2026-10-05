@@ -25,8 +25,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  check_pages:
     runs-on: ubuntu-latest
+    outputs:
+      enabled: ${{ steps.pages_state.outputs.enabled }}
     steps:
       - name: Check whether GitHub Pages is enabled
         id: pages_state
@@ -35,19 +37,33 @@ jobs:
           GH_REPO: ${{ github.repository }}
         shell: bash
         run: |
-          if gh api "repos/${GH_REPO}/pages" >/dev/null 2>&1; then
+          set +e
+          pages_response="$(gh api --include "repos/${GH_REPO}/pages" 2>&1)"
+          api_exit=$?
+          set -e
+
+          if [ "$api_exit" -eq 0 ]; then
             echo "enabled=true" >> "${GITHUB_OUTPUT}"
-          else
+          elif printf '%s\n' "$pages_response" | grep -Eq '^HTTP/[0-9.]+ 404'; then
             echo "enabled=false" >> "${GITHUB_OUTPUT}"
             echo "::notice::GitHub Pages is not enabled for this repository. Enable Pages in Settings > Pages with GitHub Actions as the source, then rerun this workflow."
+          else
+            printf '%s\n' "$pages_response" >&2
+            exit "$api_exit"
           fi
 
+  publish:
+    needs: check_pages
+    if: needs.check_pages.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Checkout
-        if: steps.pages_state.outputs.enabled == 'true'
         uses: actions/checkout@v6
 
       - name: Stage machine-readable discovery files
-        if: steps.pages_state.outputs.enabled == 'true'
         shell: bash
         run: |
           cp llms.txt docs/llms.txt
@@ -55,24 +71,20 @@ jobs:
           cp CITATION.cff docs/CITATION.cff
 
       - name: Configure Pages
-        if: steps.pages_state.outputs.enabled == 'true'
         id: pages
         uses: actions/configure-pages@v5
 
       - name: Build documentation with Jekyll
-        if: steps.pages_state.outputs.enabled == 'true'
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs
           destination: ./_site
 
       - name: Upload Pages artifact
-        if: steps.pages_state.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./_site
 
       - name: Deploy to GitHub Pages
-        if: steps.pages_state.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
