@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/agentauth-error.schema.json",
+  "title": "AgentAuth Error Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol_version",
+    "error",
+    "recoverable",
+    "interaction_required"
+  ],
+  "properties": {
+    "protocol_version": {
+      "const": "0.2"
+    },
+    "error": {
+      "type": "string",
+      "enum": [
+        "agentauth_not_supported",
+        "agentauth_version_unsupported",
+        "agentauth_profile_mismatch",
+        "agentauth_authority_not_trusted",
+        "agentauth_agent_invalid",
+        "agentauth_instance_invalid",
+        "agentauth_instance_suspended",
+        "agentauth_instance_revoked",
+        "agentauth_proof_required",
+        "agentauth_proof_invalid",
+        "agentauth_proof_replayed",
+        "agentauth_audience_mismatch",
+        "agentauth_grant_required",
+        "agentauth_grant_denied",
+        "agentauth_grant_suspended",
+        "agentauth_grant_revoked",
+        "agentauth_grant_expired",
+        "agentauth_insufficient_authority",
+        "agentauth_step_up_required",
+        "agentauth_provider_account_required",
+        "agentauth_provider_account_suspended",
+        "agentauth_session_expired",
+        "agentauth_session_revoked",
+        "agentauth_bootstrap_invalid",
+        "agentauth_bootstrap_replayed",
+        "agentauth_idempotency_conflict",
+        "agentauth_policy_denied"
+      ]
+    },
+    "error_description": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "recoverable": {
+      "type": "boolean"
+    },
+    "interaction_required": {
+      "type": "boolean"
+    },
+    "agentauth": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
