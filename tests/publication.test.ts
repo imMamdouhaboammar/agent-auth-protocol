@@ -133,6 +133,12 @@ describe("AgentAuth publication, citation, and discoverability", () => {
     expect(workflow).toContain("cp CITATION.cff docs/CITATION.cff");
     expect(workflow).toContain("GitHub Pages is not enabled");
     expect(workflow).not.toContain("enablement: true");
+    expect(workflow).toContain('name: github-pages');
+    expect(workflow).toContain('url: ${{ steps.deployment.outputs.page_url }}');
+    expect(workflow).toContain('HTTP/');
+    expect(workflow).toContain('404');
+    expect(workflow).toContain('exit "$api_exit"');
+    expect(workflow).not.toContain('gh api "repos/${GH_REPO}/pages" >/dev/null 2>&1');
   });
 
   it("aligns package discovery metadata with the actual protocol scope", () => {
