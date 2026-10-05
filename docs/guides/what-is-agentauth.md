@@ -125,7 +125,7 @@ Mamdouh Aboammar
 
 ## Next reading
 
-- [How Login as Agent works](login-as-agent/)
-- [AgentAuth vs OAuth, MCP, SPIFFE, and service accounts](agentauth-vs-oauth-mcp-spiffe/)
-- [AgentAuth FAQ](faq/)
-- [Normative protocol core](../24-normative-protocol-core.md)
+- [How Login as Agent works](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/login-as-agent/)
+- [AgentAuth vs OAuth, MCP, SPIFFE, and service accounts](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/agentauth-vs-oauth-mcp-spiffe/)
+- [AgentAuth FAQ](https://immamdouhaboammar.github.io/agent-auth-protocol/guides/faq/)
+- [Normative protocol core](https://github.com/imMamdouhaboammar/agent-auth-protocol/blob/main/docs/24-normative-protocol-core.md)
