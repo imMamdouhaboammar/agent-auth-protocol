@@ -1,106 +1,119 @@
-# AgentAuth Protocol: Identity, Authentication, Authorization & Delegation for AI Agents
+<p align="center">
+  <img src="./assets/agentauth-hero.svg" alt="AgentAuth identity flow showing Subject, Agent Principal, Agent Instance, and Provider" width="100%" />
+</p>
 
-[![CI](https://github.com/imMamdouhaboammar/agent-auth-protocol/actions/workflows/ci.yml/badge.svg)](https://github.com/imMamdouhaboammar/agent-auth-protocol/actions)
-[![License](https://img.shields.io/badge/Code-Apache_2.0-blue.svg)](LICENSE)
-[![Docs License](https://img.shields.io/badge/Docs-CC_BY_4.0-lightgrey.svg)](LICENSE-DOCS.md)
-[![Spec](https://img.shields.io/badge/AgentAuth-v0.2_Draft-orange.svg)](docs/24-normative-protocol-core.md)
-[![Citation](https://img.shields.io/badge/Cite-CITATION.cff-green.svg)](CITATION.cff)
+<h1 align="center">AgentAuth</h1>
 
-**AgentAuth is an open system design and protocol profile for AI agent identity, authentication, authorization, delegation, federation, runtime attestation, and native "Login as Agent".**
+<p align="center">
+  <strong>AI can act for you without becoming you.</strong>
+</p>
 
-In practical terms, AgentAuth defines **AI agent authentication** and authorization semantics that preserve who the Agent is, which runtime is acting, and whose authority it is using.
+<p align="center">
+  First-class identity and delegated authority for AI agents
+</p>
 
-It defines how a service can know that the caller is an AI agent, identify the durable Agent Principal and the current Agent Instance, preserve the human or organization represented by the agent, verify delegated authority, apply Provider-local policy, and keep the resulting action attributable and auditable.
+<p align="center">
+  <a href="https://github.com/imMamdouhaboammar/agent-auth-protocol/actions"><img alt="CI" src="https://github.com/imMamdouhaboammar/agent-auth-protocol/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="./docs/24-normative-protocol-core.md"><img alt="AgentAuth v0.2 Draft" src="https://img.shields.io/badge/spec-AgentAuth_v0.2_Draft-6d5dfc"></a>
+  <a href="./LICENSE"><img alt="Code license Apache 2.0" src="https://img.shields.io/badge/code-Apache_2.0-2f81f7"></a>
+  <a href="./LICENSE-DOCS.md"><img alt="Documentation license CC BY 4.0" src="https://img.shields.io/badge/docs-CC_BY_4.0-8b5cf6"></a>
+  <a href="./CITATION.cff"><img alt="Cite AgentAuth" src="https://img.shields.io/badge/cite-CITATION.cff-f59e0b"></a>
+</p>
 
-**Canonical source:** https://github.com/imMamdouhaboammar/agent-auth-protocol  
-**Original system design:** Mamdouh Aboammar  
-**Current design status:** AgentAuth v0.2 draft, System Design phase  
-**Last design checkpoint:** 2026-10-05
+<p align="center">
+  <a href="./docs/index.html">Guide</a>
+  ·
+  <a href="./docs/24-normative-protocol-core.md">Protocol</a>
+  ·
+  <a href="./docs/31-conformance-matrix.md">Conformance</a>
+  ·
+  <a href="./HOW_TO_CITE.md">Cite</a>
+</p>
 
-> AgentAuth does not replace OAuth, OpenID Connect, SPIFFE, MCP, DPoP, mTLS, RATS, or EAT. It profiles and composes existing identity standards with explicit AI-agent semantics.
+---
 
-## What problem does AgentAuth solve?
+AgentAuth is an open system design for **AI agent authentication**, identity, authorization, delegation, federation, runtime attestation, and native **Login as Agent**.
 
-Most existing identity systems can authenticate a human, an OAuth client, a service account, or a workload. They do not automatically answer all of these questions at the same time:
+OAuth and MCP can already let an AI client access a user's account. AgentAuth keeps one more security fact alive all the way to the Provider:
 
-- Is the caller an AI agent?
-- Which durable Agent Principal is acting?
-- Which running Agent Instance is presenting the request?
-- Is the agent acting as itself or on behalf of a human, organization, or workload?
-- Which explicit Delegation Grant permits the requested action?
-- Has authority been narrowed correctly across an agent-to-agent delegation chain?
-- Does the target service trust the Agent's Home Authority or runtime?
-- Is the current runtime sufficiently attested for the requested action?
-- Can the Provider keep the server-side session visibly marked as agent-operated?
-- Can the action be audited back to Subject, Agent, Instance, grant, proof, approval, and policy decision?
+> **Which AI agent is actually acting, from which runtime, for whom, and under what authority?**
 
-AgentAuth treats these as separate security questions instead of collapsing them into one "agent account" or browser session.
+The goal is not to replace OAuth, OpenID Connect, MCP, SPIFFE, DPoP, mTLS, RATS, or EAT. AgentAuth profiles and connects those mechanisms so the AI actor does not disappear behind the user account or client application.
 
-## What is "Login as Agent"?
+## The problem in one picture
 
-**Login as Agent** is a native authentication flow in which the target application intentionally accepts an AI Agent Actor and keeps that actor visible in its authorization and session model.
-
-A native AgentAuth session is not:
-
-- a bot typing a human password
-- a special User-Agent string
-- an `X-Agent: true` header
-- a browser cookie pretending to be durable identity
-- an MCP connection by itself
-- an ordinary OAuth client ID by itself
-
-A Provider that supports native Login as Agent can identify:
+A common integration can look like this:
 
 ```text
-Subject        = the represented human, organization, workload, or Agent
-Agent Actor    = the durable AI Agent Principal
-Agent Instance = the current runtime with its own proof key
-Grant          = the authority permitting this action
-Proof          = current sender-constrained proof
-Session        = Provider-local session marked as agent-operated
+User
+  |
+  | OAuth consent
+  v
+AI Client
+  |
+  | user-scoped access token
+  v
+Service
+
+Service can often identify:
+  user + OAuth client
 ```
 
-See [Native Login as Agent](docs/05-native-login-as-agent.md) and [Protocol Ceremonies](docs/20-protocol-ceremonies.md).
-
-## Three-party architecture
-
-AgentAuth separates three protocol roles:
+AgentAuth keeps the agent itself explicit:
 
 ```text
-Agent Runtime
-    |
-    v
-Agent Client / Agent SDK
-    |
-    | AgentAuth profile
-    v
-AgentAuth Authority
-    |
-    | signed identity, delegation, proof-bound credentials
-    v
-Provider / Provider SDK
-    |
-    v
-Target application, API, MCP server, or native web session
+Represented Subject
+       |
+       | delegates authority
+       v
+Agent Principal
+       |
+       | runs as
+       v
+Agent Instance
+       |
+       | proof-bound credential
+       v
+Provider
+
+Provider can retain:
+  Subject + Agent + Instance + Grant + Proof
 ```
 
-The Authority can be operated by the Provider, the Agent owner, an enterprise identity team, a cloud platform, or an independent identity provider.
+That difference matters when the human has broad access but the agent should not.
 
-There is **no mandatory global AgentAuth root**.
+For example:
 
-Read the [Three-Party Protocol Architecture](docs/17-three-party-protocol-architecture.md).
+```text
+Subject authority:
+  repo.read
+  repo.write
+  repo.delete
 
-## Core identity model
+Agent grant:
+  repo.read
+  repo.write
 
-AgentAuth deliberately separates identities that are often conflated:
+Runtime restriction:
+  repo.read
 
-1. **Agent Definition**: descriptive software metadata and declared capabilities.
-2. **Agent Principal**: durable security principal representing the AI agent.
-3. **Agent Instance**: one running instance with its own proof key and runtime evidence.
-4. **Subject**: human, organization, workload, or Agent represented by the Actor.
-5. **Delegation Grant**: explicit, scoped, time-bounded delegated authority.
-6. **AgentAuth Context**: immutable Provider-side security context derived after validation.
-7. **Provider Agent Session**: short-lived target-side session that remains marked as AI-agent operated.
+Effective authority:
+  repo.read
+```
+
+The user may be allowed to delete the repository. The agent still is not.
+
+## What AgentAuth makes first-class
+
+| Security object | Meaning |
+| --- | --- |
+| **Subject** | The human, organization, workload, or agent being represented |
+| **Agent Principal** | The durable security identity of the AI agent |
+| **Agent Instance** | One running instance with its own proof key |
+| **Delegation Grant** | Explicit, scoped, time-bounded authority |
+| **Provider Agent Account** | Provider-local relationship to an issuer-qualified agent |
+| **AgentAuth Context** | Trusted Provider-side context after validation |
+| **Agent Session** | A Provider session that remains visibly agent-operated |
 
 Global Agent identity is issuer-qualified:
 
@@ -109,11 +122,58 @@ Agent Principal = (agent_issuer, agent_id)
 Agent Instance  = (agent_issuer, instance_id)
 ```
 
-A bare `agent_id` is not globally unique.
+A bare `agent_id` is not a global identity.
 
-## Authorization model
+## What changes compared with ordinary OAuth/MCP access?
 
-AgentAuth uses **intersection, not union**, when computing delegated authority.
+| Question | Typical OAuth/MCP integration | AgentAuth |
+| --- | --- | --- |
+| Who is the user or represented subject? | Usually explicit | Explicit |
+| Which client application connected? | Usually explicit through `client_id` | Still available |
+| Which AI Agent Principal is acting? | Not consistently first-class | Explicit |
+| Which running agent instance is acting? | Usually outside the auth model | Explicit |
+| Is the agent acting for itself or for someone else? | Often inferred from the flow | Explicit authority mode |
+| Where did the authority come from? | Scopes, consent, app policy | Grant + Subject authority + Provider policy |
+| Can one agent delegate to another? | External to the basic flow | First-class, attenuation required |
+| Does runtime attestation affect trust? | Usually external | Explicit trust input |
+| Does the Provider keep an agent-aware session? | Not guaranteed | Native profile supports it |
+
+The distinction is deliberate:
+
+```text
+OAuth Client
+    !=
+Agent Principal
+    !=
+Agent Instance
+    !=
+Represented Subject
+```
+
+## Native Login as Agent
+
+**Login as Agent** is a Provider flow where the target intentionally accepts an AI Agent Actor and preserves that fact in authorization and session state.
+
+A native AgentAuth login can preserve:
+
+```text
+Subject        = represented principal
+Actor          = AI Agent Principal
+Instance       = current runtime
+Grant          = authority basis
+Proof          = sender-constrained proof
+Session        = Provider-local agent session
+```
+
+It is not browser automation pretending to be a human login. It is not a special User-Agent string. It is not an `X-Agent: true` header.
+
+The Provider knows the AI actor exists.
+
+Read [Native Login as Agent](docs/05-native-login-as-agent.md) and [Protocol Ceremonies](docs/20-protocol-ceremonies.md).
+
+## Authorization is an intersection
+
+For delegated access, AgentAuth computes authority by narrowing:
 
 ```text
 Requested Authority
@@ -125,9 +185,9 @@ INTERSECT Runtime Authority
 MINUS Provider Policy Deny
 ```
 
-This prevents a broad permission in one layer from restoring authority that another layer intentionally removed.
+One broad permission source cannot restore authority removed by another layer.
 
-Portable AgentAuth grants use positive Capabilities with deterministic constraints. Provider-local RBAC, ReBAC, ABAC, ACLs, Cedar, OPA, OpenFGA, or custom business rules remain local policy inputs.
+Portable grants use positive Capabilities and deterministic constraints. Provider-local RBAC, ReBAC, ABAC, ACLs, Cedar, OPA, OpenFGA, or custom business rules remain Provider policy inputs.
 
 Read:
 
@@ -137,23 +197,17 @@ Read:
 - [Delegation and Attenuation](docs/35-delegation-attenuation.md)
 - [Progressive Consent](docs/37-progressive-consent.md)
 
-## Trust, federation, and runtime attestation
+## Trust stays separate from permission
 
-AgentAuth distinguishes cryptographic validity, local trust, runtime assurance, and authorization.
+AgentAuth does not collapse cryptographic validity, federation trust, runtime assurance, and action authorization.
 
 ```text
 Valid signature
     !=
 Trusted issuer
-
-Trusted issuer
     !=
 Trusted Agent Instance
-
-Trusted Agent Instance
     !=
-Attested runtime
-
 Attested runtime
     !=
 Authorized action
@@ -161,7 +215,7 @@ Authorized action
 
 Federation is explicit, directional, bounded, revocable, and non-transitive by default.
 
-Runtime attestation is a trust input. It cannot expand a Delegation Grant or Provider permission.
+Runtime attestation can satisfy a Provider trust requirement. It cannot expand a grant.
 
 Read:
 
@@ -173,151 +227,67 @@ Read:
 - [Federated Token Exchange](docs/45-federated-token-exchange.md)
 - [SPIFFE and Workload Identity Bridge](docs/47-spiffe-workload-bridge.md)
 
-## Standards-first design
+## How AgentAuth fits with existing standards
 
-AgentAuth reuses existing standards wherever they already solve the underlying security problem.
+AgentAuth is designed as an identity and delegation profile above existing security building blocks.
 
-Stable foundations include:
+```text
+OAuth / OIDC / Token Exchange
+        |
+        | token issuance and delegation mechanics
+        v
+DPoP / mTLS
+        |
+        | sender-constrained proof
+        v
+AgentAuth
+        |
+        | Agent Principal + Instance + Subject + Grant
+        v
+API / MCP / Native Browser Session
 
-- OAuth 2.0
-- OAuth 2.0 Security Best Current Practice
-- OAuth Token Exchange, RFC 8693
-- OAuth Mutual-TLS Client Authentication, RFC 8705
-- DPoP, RFC 9449
-- JWT Profile for OAuth Access Tokens, RFC 9068
-- OAuth Resource Indicators, RFC 8707
-- OAuth Authorization Server Metadata, RFC 8414
-- OAuth Protected Resource Metadata, RFC 9728
-- Rich Authorization Requests, RFC 9396
-- OpenID Connect
-- RATS Architecture, RFC 9334
-- Entity Attestation Token, RFC 9711
-- EAT Media Types, RFC 9782
-- EAT Measured Component, RFC 10013
-- SPIFFE workload identity and federation concepts
+SPIFFE / RATS / EAT
+        |
+        +--> workload identity and runtime trust inputs
+```
 
-Emerging AI-agent and workload-identity drafts are tracked as research inputs, not silently treated as stable dependencies.
+Stable foundations include OAuth 2.0, OAuth Security BCP, RFC 8693 Token Exchange, RFC 8705 mTLS, RFC 9449 DPoP, RFC 9068 JWT access-token profile, RFC 8707 Resource Indicators, RFC 8414 Authorization Server Metadata, RFC 9728 Protected Resource Metadata, RFC 9396 Rich Authorization Requests, OpenID Connect, RFC 9334 RATS, RFC 9711 EAT, RFC 9782 EAT media types, RFC 10013 measured components, and SPIFFE concepts.
+
+Emerging AI-agent and workload-identity drafts are tracked as research inputs until they stabilize.
 
 See [Standards Mapping](docs/16-standards-mapping.md).
 
-## AgentAuth vs OAuth, MCP, SPIFFE, and service accounts
-
-| Technology | What it primarily solves | What AgentAuth adds |
-| --- | --- | --- |
-| OAuth 2.0 | delegated API authorization | explicit AI Agent Actor, Instance, grant, proof, and Provider session semantics |
-| OpenID Connect | identity assertions | Agent Principal and represented Subject separation |
-| MCP Authorization | authorization around MCP interactions | cross-API, browser, Provider, delegation, and Agent identity model |
-| SPIFFE | workload identity | mapping from workload to Agent Principal/Instance plus delegation and Provider semantics |
-| Service accounts | non-human account access | explicit Agent identity, represented Subject, runtime proof, progressive consent, and agent-aware sessions |
-| Browser automation | UI execution | security identity and authorization independent from automation |
-
-More detail: [AgentAuth compared with OAuth, MCP, SPIFFE, and service accounts](docs/guides/agentauth-vs-oauth-mcp-spiffe.md).
-
-## Primary use cases
-
-AgentAuth is designed for scenarios such as:
-
-- personal AI assistants acting for a user
-- enterprise agents acting for an organization
-- AI agents using SaaS APIs
-- AI agents authenticating to MCP servers
-- browser agents using native agent-aware sessions
-- agent-to-agent delegation
-- high-risk actions requiring human step-up approval
-- public SaaS Providers accepting agents from external Trust Domains
-- sovereign or on-prem deployments with no global identity root
-- workload-backed or hardware-attested Agent Instances
-
 ## System design map
 
-The repository is a design specification first. The current design is organized as follows.
+AgentAuth v0.2 is still in the **System Design** phase. The repository is intentionally freezing semantics before a production reference implementation.
 
-| Area | Canonical documents |
+| Area | Start here |
 | --- | --- |
-| Product and requirements | [00](docs/00-product-vision.md), [01](docs/01-requirements.md) |
-| Domain model | [02](docs/02-domain-model.md), [CONTEXT](CONTEXT.md) |
-| Architecture | [03](docs/03-system-architecture.md), [17](docs/17-three-party-protocol-architecture.md) |
-| Wire protocol | [24](docs/24-normative-protocol-core.md), [25](docs/25-http-wire-bindings.md), [26](docs/26-token-and-claims-profile.md) |
-| Discovery and metadata | [21](docs/21-discovery-and-metadata.md) |
-| Login as Agent | [05](docs/05-native-login-as-agent.md), [20](docs/20-protocol-ceremonies.md) |
-| Agent SDK contract | [18](docs/18-agent-sdk-contract.md) |
-| Provider SDK contract | [19](docs/19-provider-sdk-contract.md) |
-| Authorization and delegation | [32-39](docs/32-effective-authorization-model.md) |
-| Trust and federation | [40-47](docs/40-trust-domain-model.md) |
-| Threat model | [09](docs/09-security-threat-model.md) |
-| Conformance | [13](docs/13-test-conformance.md), [31](docs/31-conformance-matrix.md) |
-| Schemas | [schemas/](schemas/) |
-| ADRs | [docs/adr/](docs/adr/) |
-| Research provenance | [docs/research/](docs/research/) |
+| Product and requirements | [Product Vision](docs/00-product-vision.md) |
+| Domain language | [CONTEXT.md](CONTEXT.md) |
+| Architecture | [Three-Party Architecture](docs/17-three-party-protocol-architecture.md) |
+| Protocol | [Normative Protocol Core](docs/24-normative-protocol-core.md) |
+| Wire format | [HTTP Wire Bindings](docs/25-http-wire-bindings.md) |
+| Claims | [Token and Claims Profile](docs/26-token-and-claims-profile.md) |
+| Discovery | [Discovery and Metadata](docs/21-discovery-and-metadata.md) |
+| Authorization | [Effective Authorization Model](docs/32-effective-authorization-model.md) |
+| Delegation | [Delegation and Attenuation](docs/35-delegation-attenuation.md) |
+| Trust | [Trust Domain Model](docs/40-trust-domain-model.md) |
+| Federation | [Federation Protocol](docs/41-federation-protocol.md) |
+| Attestation | [Runtime Attestation](docs/43-runtime-attestation.md) |
+| Conformance | [Conformance Matrix](docs/31-conformance-matrix.md) |
+| Security | [Threat Model](docs/09-security-threat-model.md) |
+| Decisions | [ADRs](docs/adr/) |
 
-For a search-oriented entry point, see [AgentAuth Documentation](docs/index.html).
+For a shorter public entry point, see [AgentAuth Documentation](docs/index.html).
 
-## Common questions
+## For AI agents working on this repository
 
-### How can an AI agent authenticate to a website?
+Read [AGENTS.md](AGENTS.md) before modifying protocol semantics, schemas, security claims, tests, or publication artifacts.
 
-If the website supports AgentAuth natively, the Agent Client discovers the Provider, obtains a proof-bound credential from an accepted Authority, and establishes an Agent-aware session. The Provider keeps `actor_type=ai_agent` in its server-side context instead of hiding the Agent behind a human browser session.
-
-### Can AgentAuth work with OAuth?
-
-Yes. AgentAuth is intentionally built on OAuth-family mechanisms rather than replacing them. OAuth handles token issuance and delegated authorization primitives; AgentAuth adds AI Agent Principal, Agent Instance, represented Subject, grant, proof, trust, and native session semantics.
-
-### Is AgentAuth the same as MCP authentication?
-
-No. MCP is one integration surface. AgentAuth is intended to cover APIs, MCP, native browser sessions, legacy browser bridges, and agent-to-agent delegation using the same identity model.
-
-### Does attestation give an Agent more permission?
-
-No. Runtime Attestation can satisfy a Provider trust requirement, but it cannot expand the Agent's grant or the represented Subject's authority.
-
-### Can an Agent delegate to another Agent?
-
-Yes, but child authority must attenuate. Resources, actions, constraints, lifetime, and delegation depth can only stay equal or become narrower under the defined profile.
-
-## Machine-readable discovery
-
-The repository includes:
-
-- [llms.txt](llms.txt) for concise AI-readable navigation
-- [llms-full.txt](llms-full.txt) for an expanded protocol summary
-- [CITATION.cff](CITATION.cff) for machine-readable citation
-- [ATTRIBUTION.md](ATTRIBUTION.md) for reuse and attribution guidance
-- [DESIGN_PROVENANCE.md](DESIGN_PROVENANCE.md) for design chronology and source classification
-
-The project does not claim that `llms.txt` is a search-ranking factor.
-
-## Citation and attribution
-
-If you discuss, quote, adapt, or build directly from the AgentAuth specification, cite the canonical repository:
-
-> **AgentAuth Protocol**, original system design by **Mamdouh Aboammar**  
-> https://github.com/imMamdouhaboammar/agent-auth-protocol
-
-GitHub can render formal citation formats from [CITATION.cff](CITATION.cff).
-
-See [How to Cite AgentAuth](HOW_TO_CITE.md) and [Attribution Policy](ATTRIBUTION.md).
-
-## Licensing
-
-This repository intentionally separates software licensing from documentation licensing.
-
-- **Software, tests, schemas, and reference implementation material:** Apache License 2.0 unless a file says otherwise.
-- **Original documentation prose and diagrams:** Creative Commons Attribution 4.0 International, CC BY 4.0, unless a file says otherwise.
-
-CC BY 4.0 permits sharing and adaptation, including commercial use, subject to its attribution requirements.
-
-See:
-
-- [LICENSE](LICENSE)
-- [LICENSE-DOCS.md](LICENSE-DOCS.md)
-- [NOTICE](NOTICE)
-- [ATTRIBUTION.md](ATTRIBUTION.md)
-
-The licensing files distinguish reuse of copyrighted specification material from independent implementation of general ideas or standards concepts.
+It defines the source-of-truth order, protocol invariants, standards policy, change workflow, test expectations, and rules for research and implementation agents.
 
 ## Verification
-
-The repository uses Bun for schema, conformance, integrity, and documentation checks.
 
 ```bash
 bun install
@@ -325,17 +295,32 @@ bun test
 bun run validate:checksums
 ```
 
-## Project status
+CI validates schemas, conformance fixtures, protocol design documents, publication artifacts, and SHA-256 integrity.
 
-AgentAuth is currently a **draft system design**, not an Internet standard and not yet a production-ready reference implementation.
+## Citation, authorship, and reuse
 
-The design is being frozen in stages before implementation.
+**Canonical source:** https://github.com/imMamdouhaboammar/agent-auth-protocol  
+**Original system design:** Mamdouh Aboammar  
+**Current design:** AgentAuth v0.2 draft
 
-## Contributing
+Preferred citation:
 
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Security Policy](SECURITY.md)
-- [Architectural Decision Records](docs/adr/)
+> Mamdouh Aboammar. *AgentAuth Protocol v0.2: System Design for AI Agent Identity, Authentication, Authorization, Delegation, Federation, and Attestation.* 2026.
 
-When proposing changes to identity, authorization, trust, or wire semantics, include evidence, threat implications, interoperability impact, and conformance tests.
+See [CITATION.cff](CITATION.cff), [Design Provenance](DESIGN_PROVENANCE.md), and [How to Cite AgentAuth](HOW_TO_CITE.md).
+
+### Licensing
+
+- Software, tests, schemas, and reference implementation material: **Apache-2.0**
+- Original documentation prose and diagrams: **CC BY 4.0**
+
+If you implement AgentAuth from this design, the project requests that you cite the canonical repository as technical provenance. Reuse of licensed documentation remains subject to the applicable attribution requirements.
+
+See [LICENSE](LICENSE), [LICENSE-DOCS.md](LICENSE-DOCS.md), and [ATTRIBUTION.md](ATTRIBUTION.md).
+
+---
+
+<p align="center">
+  <strong>AgentAuth v0.2 Draft</strong><br>
+  Identity stays explicit. Authority stays bounded.
+</p>
