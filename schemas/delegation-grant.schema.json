@@ -8,6 +8,7 @@
     "grant_id",
     "issuer",
     "subject",
+    "actor_agent_issuer",
     "actor_agent_id",
     "capabilities",
     "expires_at",
@@ -16,85 +17,61 @@
   "properties": {
     "grant_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 256
     },
     "issuer": {
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "pattern": "^https://"
     },
     "subject": {
       "type": "object",
-      "required": [
-        "type",
-        "id"
-      ],
+      "required": ["type", "issuer", "id"],
       "properties": {
         "type": {
-          "enum": [
-            "human",
-            "organization",
-            "workload",
-            "ai_agent"
-          ]
+          "enum": ["human", "organization", "workload", "ai_agent"]
+        },
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
         },
         "id": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 256
         }
       },
       "additionalProperties": false
     },
+    "actor_agent_issuer": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
     "actor_agent_id": {
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 256
     },
     "parent_grant_id": {
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": ["string", "null"],
+      "maxLength": 256
     },
     "purpose": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string", "null"],
       "maxLength": 500
     },
     "capabilities": {
       "type": "array",
       "minItems": 1,
       "items": {
-        "type": "object",
-        "required": [
-          "action",
-          "resources"
-        ],
-        "properties": {
-          "action": {
-            "type": "string",
-            "minLength": 1
-          },
-          "resources": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "constraints": {
-            "type": "object"
-          }
-        },
-        "additionalProperties": false
+        "$ref": "https://agentauth.dev/schemas/capability.schema.json"
       }
     },
     "not_before": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string", "null"],
       "format": "date-time"
     },
     "expires_at": {
@@ -107,13 +84,7 @@
       "maximum": 16
     },
     "status": {
-      "enum": [
-        "pending",
-        "active",
-        "denied",
-        "revoked",
-        "expired"
-      ]
+      "enum": ["requested", "pending_approval", "active", "suspended", "denied", "revoked", "expired"]
     }
   }
 }
