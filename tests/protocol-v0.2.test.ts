@@ -22,7 +22,10 @@ describe("AgentAuth v0.2 three-party protocol design", () => {
       "docs/19-provider-sdk-contract.md",
       "docs/20-protocol-ceremonies.md",
       "docs/21-discovery-and-metadata.md",
-      "docs/adr/0005-three-party-protocol-and-sdk-boundaries.md"
+      "docs/22-standards-delta-v0.2.md",
+      "docs/23-provider-authority-trust-model.md",
+      "docs/adr/0005-three-party-protocol-and-sdk-boundaries.md",
+      "docs/adr/0006-direct-vs-brokered-provider-trust.md"
     ];
 
     for (const file of files) {
