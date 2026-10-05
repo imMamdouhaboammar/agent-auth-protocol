@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/federation-peer.schema.json",
+  "title": "AgentAuth Federation Peer",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "peer_id",
+    "local_trust_domain",
+    "peer_trust_domain",
+    "direction",
+    "status",
+    "accepted_issuers",
+    "allowed_actor_types",
+    "allowed_authority_modes",
+    "activated_at",
+    "metadata_max_age_seconds"
+  ],
+  "properties": {
+    "peer_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "local_trust_domain": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "peer_trust_domain": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "direction": {
+      "const": "inbound"
+    },
+    "status": {
+      "enum": ["proposed", "active", "suspended", "removed"]
+    },
+    "accepted_issuers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https://"
+      }
+    },
+    "allowed_actor_types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "const": "ai_agent" }
+    },
+    "allowed_authority_modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["direct", "delegated"]
+      }
+    },
+    "allowed_audiences": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048
+      }
+    },
+    "accepted_agent_publishers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      }
+    },
+    "max_delegation_depth": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 16
+    },
+    "require_brokered_exchange": {
+      "type": "boolean"
+    },
+    "require_attestation": {
+      "type": "boolean"
+    },
+    "accepted_assurance_classes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "activated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "metadata_max_age_seconds": {
+      "type": "integer",
+      "minimum": 30,
+      "maximum": 86400
+    }
+  }
+}
