@@ -8,6 +8,19 @@ The suite should prefer protocol-level, property-based, fuzz, integration, and a
 
 ## Conformance profiles
 
+The normative v0.2 profile matrix is defined in `docs/31-conformance-matrix.md`.
+
+The historical labels below map to the v0.2 profiles as follows:
+
+- C1 AgentAuth Issuer -> AA-AUTHORITY-1
+- C2 Resource Server -> AA-PROVIDER-API-1
+- C3 Runtime Broker -> AA-CLIENT-1
+- C4 Native Browser Target -> AA-PROVIDER-WEB-1
+- C6 Federation -> AA-FEDERATION-1
+- delegation-specific requirements -> AA-DELEGATION-1
+
+C5 MCP Server remains an integration specialization and does not replace the core Provider profile.
+
 ### C1 AgentAuth Issuer
 
 Must support:
