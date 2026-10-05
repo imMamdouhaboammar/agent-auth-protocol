@@ -1,0 +1,25 @@
+{
+  "decision_id": "trustdec_123",
+  "decision": "accept",
+  "agent_issuer": "https://agents.example.com",
+  "agent_id": "agent_123",
+  "instance_id": "inst_456",
+  "credential_issuer": "https://auth.provider.example.com",
+  "federation_path": [
+    "https://agents.example.com",
+    "https://provider.example.com"
+  ],
+  "proof_method": "dpop",
+  "attestation_result_id": "attres_123",
+  "runtime_assurance": {
+    "status": "accepted",
+    "class": "workload-backed"
+  },
+  "policy_version": "trust-v9",
+  "reason_codes": [
+    "ISSUER_TRUSTED",
+    "INSTANCE_PROOF_VALID",
+    "ATTESTATION_ACCEPTED"
+  ],
+  "evaluated_at": "2026-10-05T12:05:00Z"
+}
