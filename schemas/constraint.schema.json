@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentauth.dev/schemas/constraint.schema.json",
+  "title": "AgentAuth Core Constraint",
+  "$defs": {
+    "scalar": {
+      "type": ["string", "number", "integer", "boolean", "null"]
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type"],
+      "properties": {
+        "constraint_type": { "const": "wildcard" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type", "value"],
+      "properties": {
+        "constraint_type": { "const": "exact" },
+        "value": { "$ref": "#/$defs/scalar" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type"],
+      "properties": {
+        "constraint_type": { "const": "range" },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "min_inclusive": { "type": "boolean", "default": true },
+        "max_inclusive": { "type": "boolean", "default": true }
+      },
+      "anyOf": [
+        { "required": ["min"] },
+        { "required": ["max"] }
+      ]
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type", "values"],
+      "properties": {
+        "constraint_type": { "const": "one_of" },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/scalar" }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type", "excluded"],
+      "properties": {
+        "constraint_type": { "const": "not_one_of" },
+        "excluded": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/scalar" }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type", "allowed"],
+      "properties": {
+        "constraint_type": { "const": "subset" },
+        "allowed": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/scalar" }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["constraint_type", "required"],
+      "properties": {
+        "constraint_type": { "const": "contains" },
+        "required": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/scalar" }
+        }
+      }
+    }
+  ]
+}
