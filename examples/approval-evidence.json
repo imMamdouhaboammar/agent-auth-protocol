@@ -1,6 +1,6 @@
 {
   "approval_id": "apr_123",
-  "action_digest": "sha-256:pZ67QEjxzFdQ-jN8bSl6r6Kf96RSUfF49wInOItKkrs",
+  "action_digest": "sha-256:IVaE4rfuTVcFnj8xt3RULpqj9ZB49KvMqN4DfgPRcA0",
   "decision": "approved",
   "approver": {
     "type": "human",
