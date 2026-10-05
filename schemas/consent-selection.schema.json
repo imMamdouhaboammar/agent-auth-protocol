@@ -35,5 +35,37 @@
       "minimum": 0,
       "maximum": 16
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": { "const": "denied" }
+        },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "selected_capabilities": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": { "const": "approved" }
+        },
+        "required": ["decision"]
+      },
+      "then": {
+        "properties": {
+          "selected_capabilities": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
 }
