@@ -187,7 +187,7 @@ Mapping rules:
 - unknown mandatory security semantics fail closed
 - local claims may narrow authority
 - issuer provenance remains auditable
-- trust tier may decrease
+- local assurance interpretation may stay equal or become more conservative
 - grant expiry may shorten
 - delegation depth may decrease
 - action/resource scope may narrow
@@ -250,6 +250,17 @@ Provider-local denial wins even when Home Authority still considers the agent ac
 Existing short-lived Provider-local access tokens MAY remain locally verifiable while federation services are temporarily unavailable, according to Provider risk policy.
 
 New cross-domain authorization SHOULD fail closed when current trust cannot be established for high-risk operations.
+
+## Normative trust references
+
+This topology document is refined by:
+
+- `docs/40-trust-domain-model.md`
+- `docs/41-federation-protocol.md`
+- `docs/45-federated-token-exchange.md`
+- `docs/46-trust-decision-algorithm.md`
+
+Runtime Attestation is defined separately in `docs/43-runtime-attestation.md`.
 
 ## Security invariant
 
